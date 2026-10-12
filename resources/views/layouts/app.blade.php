@@ -24,6 +24,9 @@
 
   @include('layouts.scripts')
 
+  {{-- Aquí se imprimen los scripts que cada vista agrega con @push('scripts') --}}
+  @stack('scripts')
+
 </body>
 
 </html>

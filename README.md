@@ -1,125 +1,76 @@
-# 🦷 DentalCare - Sistema de Gestión Odontológica
+# DentalCare – Sistema de Gestión Odontológica
 
-DentalCare es una aplicación web para la administración básica de una clínica odontológica. Permite gestionar pacientes, odontólogos, citas, tratamientos e historias clínicas mediante un esquema controlado de roles y permisos.
+Aplicación web para gestionar **pacientes y citas** de una clínica odontológica, con usuarios, roles y permisos dinámicos.
+Proyecto grupal de la materia de PHP (Laravel + MySQL + Bootstrap).
 
----
+> Los documentos de diseño están en [`docs/`](docs): la **matriz de permisos** (`.xlsx`, con la base de datos y las reglas de negocio) y el **diagrama ERD** (`.drawio`, se abre en https://app.diagrams.net). **Si algo del código contradice esos documentos, mandan los documentos.**
 
-## 🛠️ Stack Tecnológico
+## Stack
 
-- **Backend:** Laravel (PHP)
-- **Base de Datos:** MySQL
-- **Frontend:** Laravel Blade + Plantilla Bootstrap (estilo Medilab)
-- **Librerías Locales:** SweetAlert2 y jQuery (`public/libs`)
-- **Control de Flujo:** Confirmación de eliminación mediante clase `.btn-delete`, alertas de sesión y manejo de validaciones pasadas con `@json`.
+Laravel 13 · PHP 8.3 o superior · MySQL · Blade · plantilla Bootstrap (Medicio) · jQuery y SweetAlert2 locales (`public/libs`).
 
----
+## Instalación (la primera vez)
 
-## 👥 Matriz de Roles y Permisos
+Necesitas PHP 8.3+, Composer, MySQL y Git. Guía completa para Windows, paso a paso: [`docs/INSTALACION.md`](docs/INSTALACION.md).
 
-Control de acceso a las funciones del sistema según el rol del usuario:
+Con todo instalado, en PowerShell, dentro de la carpeta del proyecto:
 
-| Módulo | Función | Anónimo | Administrador | Recepcionista | Odontólogo | Paciente |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Cuenta** | Iniciar sesión | ✔ | — | — | — | — |
-| | Cerrar sesión | — | ✔ | ✔ | ✔ | ✔ |
-| | Cambiar contraseña | — | ✔ | ✔ | ✔ | ✔ |
-| | Ver mi perfil | — | ✔ | ✔ | ✔ | ✔ |
-| | Actualizar mi perfil | — | ✔ | ✔ | ✔ | ✔ |
-| **Usuarios** | Ver usuarios | — | ✔ | — | — | — |
-| | Crear usuario | — | ✔ | — | — | — |
-| | Editar usuario | — | ✔ | — | — | — |
-| | Eliminar usuario | — | ✔ | — | — | — |
-| **Pacientes** | Ver pacientes | — | ✔ | ✔ | ✔ | — |
-| | Registrar paciente | — | ✔ | ✔ | — | — |
-| | Editar paciente | — | ✔ | ✔ | — | — |
-| | Ver mis datos | — | — | — | — | ✔ |
-| **Citas** | Ver todas las citas | — | ✔ | ✔ | ✔ | — |
-| | Crear cita | — | ✔ | ✔ | — | ✔ |
-| | Editar cita | — | ✔ | ✔ | — | — |
-| | Cancelar cita | — | ✔ | ✔ | — | ✔ |
-| | Ver mis citas | — | — | — | — | ✔ |
-| **Tratamientos** | Ver tratamientos | — | ✔ | — | ✔ | ✔ |
-| | Crear tratamiento | — | ✔ | — | ✔ | — |
-| | Actualizar tratamiento | — | ✔ | — | ✔ | — |
-| **Roles y Permisos** | Ver roles | — | ✔ | — | — | — |
-| | Crear rol | — | ✔ | — | — | — |
-| | Asignar permisos | — | ✔ | — | — | — |
+```powershell
+composer install
+copy .env.example .env
+php artisan key:generate
+# crea una base de datos vacía llamada "dentalcare" en MySQL (phpMyAdmin o consola)
+php artisan migrate --seed
+php artisan serve
+```
 
----
+Abre http://localhost:8000 y entra a **Pacientes** en el menú.
 
-## 🗄️ Entidades y Tablas de la Base de Datos
+`php artisan migrate --seed` crea las tablas y carga: los 3 roles, los 17 permisos (según la matriz), 3 usuarios de prueba y 3 pacientes de ejemplo. Los usuarios (contraseña `password`):
 
-### 1. `roles`
-*Catálogo de roles del sistema.*
-- `id_rol` (PK): Identificador único del rol.
-- `nombre_rol` (VARCHAR): Nombre del rol (Administrador, Recepcionista, Odontólogo, Paciente).
+| Rol | Correo |
+| --- | --- |
+| Administrador | admin@dentalcare.test |
+| Recepcionista | recepcion@dentalcare.test |
+| Odontólogo | odontologo@dentalcare.test |
 
-### 2. `usuarios`
-*Credenciales y datos generales de acceso.*
-- `id_usuario` (PK): Identificador único del usuario.
-- `nombre` (VARCHAR): Nombre de la persona.
-- `apellido` (VARCHAR): Apellido de la persona.
-- `correo` (VARCHAR): Correo electrónico (inicio de sesión).
-- `password` (VARCHAR): Contraseña encriptada.
-- `telefono` (VARCHAR): Número telefónico de contacto.
-- `id_rol` (FK → `roles.id_rol`): Rol asignado.
+Para volver a empezar de cero la base de datos: `php artisan migrate:fresh --seed`.
 
-### 3. `pacientes`
-*Información clínica y personal de los pacientes.*
-- `id_paciente` (PK): Identificador del paciente.
-- `id_usuario` (FK → `usuarios.id_usuario`): Relación directa con el usuario del sistema.
-- `documento` (VARCHAR): Documento de identidad.
-- `fecha_nacimiento` (DATE): Fecha de nacimiento.
-- `direccion` (VARCHAR): Dirección de residencia.
-- `telefono` (VARCHAR): Teléfono personal o secundario.
+## Estado de los módulos
 
-### 4. `odontologos`
-*Datos profesionales del personal odontológico.*
-- `id_odontologo` (PK): Identificador del profesional.
-- `id_usuario` (FK → `usuarios.id_usuario`): Relación directa con el usuario del sistema.
-- `especialidad` (VARCHAR): Área odontológica (Ortodoncia, Endodoncia, General, etc.).
-- `numero_licencia` (VARCHAR): Registro o tarjeta profesional.
+| Módulo | Estado | Responsable |
+| --- | --- | --- |
+| Pacientes | ✅ CRUD completo (módulo de referencia) | — |
+| Citas | 🟡 solo maqueta de vistas | |
+| Usuarios | 🟡 solo maqueta de vistas | |
+| Roles y permisos | 🟡 solo maqueta de vistas | |
+| Login / permisos por rol | ⏳ se hace cuando el profe lo explique | |
 
-### 5. `citas`
-*Gestión de agendamiento y turnos.*
-- `id_cita` (PK): Identificador de la cita médica.
-- `id_paciente` (FK → `pacientes.id_paciente`): Paciente que solicita la cita.
-- `id_odontologo` (FK → `odontologos.id_odontologo`): Doctor asignado.
-- `fecha` (DATE): Fecha de la consulta.
-- `hora` (TIME): Hora programada.
-- `motivo` (VARCHAR): Motivo de la atención.
-- `estado` (VARCHAR / ENUM): Estado actual (`Pendiente`, `Confirmada`, `Atendida`, `Cancelada`).
+La base de datos (migraciones y modelos) **ya está completa** para todos los módulos: nadie tiene que crear tablas, solo el controlador, las rutas y las vistas.
 
-### 6. `tratamientos`
-*Historial de procedimientos y costos.*
-- `id_tratamiento` (PK): Identificador del tratamiento.
-- `id_paciente` (FK → `pacientes.id_paciente`): Paciente receptor del tratamiento.
-- `id_odontologo` (FK → `odontologos.id_odontologo`): Doctor responsable del tratamiento.
-- `nombre_tratamiento` (VARCHAR): Procedimiento (ej. Limpieza profunda, Calza, Ortodoncia).
-- `descripcion` (TEXT): Detalles del procedimiento.
-- `fecha_inicio` (DATE): Fecha de inicio del tratamiento.
-- `estado` (VARCHAR): Progreso o estado del tratamiento.
-- `costo` (DECIMAL): Valor económico del tratamiento.
+## Cómo está organizado
 
----
+| Qué | Dónde |
+| --- | --- |
+| Rutas, un archivo por módulo | `routes/web/<modulo>.php` (se incluyen en `routes/web.php`) |
+| Controladores | `app/Http/Controllers/<Modulo>Controller.php` |
+| Modelos | `app/Models` |
+| Migraciones y datos iniciales | `database/migrations`, `database/seeders/DatabaseSeeder.php` |
+| Vistas | `resources/views/<modulo>/{index,create,edit}.blade.php` |
+| Layout (menú, scripts, mensajes) | `resources/views/layouts` |
 
-## 📐 Diagrama Entidad - Relación (DER)
+Nombres: el dominio va en español (`pacientes`, `citas`, `fecha`, `motivo`) y lo que exige Laravel se queda como es (`users`, `email`, `id`, `created_at`). Las llaves foráneas son `<tabla en singular>_id` (`rol_id`, `paciente_id`). Todo lo que ve el usuario va en español.
 
-Estructura de cardinalidades:
+## Cómo hacer un módulo nuevo
 
-```text
-       [ ROL ]
-          │ 1
-          │
-          │ N
-      [ USUARIO ]
-      ┌───┴───┐
-   1  │       │  1
-      ▼       ▼
- [ PACIENTE ] [ ODONTÓLOGO ]
-   │       │       │       │
- 1 │     1 │     1 │     1 │
-   ▼       └───────┼───────┘
- [ CITA ]          │ N
-   (N)             ▼
-             [ TRATAMIENTO ]
+Copia el patrón de **Pacientes**. Pasos en [`docs/NUEVO_MODULO.md`](docs/NUEVO_MODULO.md).
+
+## Flujo de trabajo con Git
+
+1. `git checkout main` y `git pull` (siempre antes de empezar).
+2. Crea tu rama: `git checkout -b dev-tunombre`.
+3. Trabaja **solo en tu módulo** y haz commits pequeños con mensajes claros.
+4. `git push -u origin dev-tunombre` y abre un Pull Request hacia `main`.
+5. Alguien lo revisa y se hace el merge. Después, todos hacen `git pull` en `main`.
+
+Si tocas archivos compartidos (`layouts`, `routes/web.php`, migraciones existentes), avisa al grupo antes. Las migraciones ya creadas no se editan: si falta una columna, se crea una migración nueva.
