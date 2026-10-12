@@ -113,7 +113,7 @@
             <div class="stats-item d-flex align-items-center w-100 h-100">
               <i class="fas fa-user-md flex-shrink-0"></i>
               <div>
-                <span data-purecounter-start="0" data-purecounter-end="12" data-purecounter-duration="1" class="purecounter"></span>
+                <span data-purecounter-start="0" data-purecounter-end="{{ $totalOdontologos ?? 0 }}" data-purecounter-duration="1" class="purecounter"></span>
                 <p>Odontólogos</p>
               </div>
             </div>
@@ -123,7 +123,7 @@
             <div class="stats-item d-flex align-items-center w-100 h-100">
               <i class="far fa-smile flex-shrink-0"></i>
               <div>
-                <span data-purecounter-start="0" data-purecounter-end="1500" data-purecounter-duration="1" class="purecounter"></span>
+                <span data-purecounter-start="0" data-purecounter-end="{{ $totalPacientes ?? 0 }}" data-purecounter-duration="1" class="purecounter"></span>
                 <p>Pacientes</p>
               </div>
             </div>
@@ -133,7 +133,7 @@
             <div class="stats-item d-flex align-items-center w-100 h-100">
               <i class="fas fa-calendar-check flex-shrink-0"></i>
               <div>
-                <span data-purecounter-start="0" data-purecounter-end="3200" data-purecounter-duration="1" class="purecounter"></span>
+                <span data-purecounter-start="0" data-purecounter-end="{{ $totalCitasAtendidas ?? 0 }}" data-purecounter-duration="1" class="purecounter"></span>
                 <p>Citas atendidas</p>
               </div>
             </div>
