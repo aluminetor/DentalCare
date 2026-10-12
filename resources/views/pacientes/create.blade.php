@@ -1,5 +1,3 @@
-@extends('layouts.app')
-
 @section('content')
     <div class="container py-4">
         <div class="card">
@@ -11,8 +9,10 @@
                 <form action="{{ route('pacientes.store') }}" method="POST">
                     @csrf
                     <div class="row">
+                        <!-- Nombre -->
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Nombre</label>
+
                             <input type="text" name="nombre" class="form-control" placeholder="Ej: María" value="{{ old('nombre') }}">
                         </div>
 
@@ -37,6 +37,7 @@
                         </div>
                     </div>
 
+
                     <button type="submit" class="btn btn-primary">Guardar</button>
                     <a href="{{ route('pacientes.index') }}" class="btn btn-secondary">Volver</a>
                 </form>
@@ -44,3 +45,4 @@
         </div>
     </div>
 @endsection
+
