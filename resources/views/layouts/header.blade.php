@@ -20,16 +20,17 @@
 
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="{{ route('home.index') }}" class="active">Inicio</a></li>
-            <li><a href="#pacientes">Pacientes</a></li>
-            <li><a href="#odontologos">Odontólogos</a></li>
-            <li><a href="#citas">Citas</a></li>
-            <li><a href="#tratamientos">Tratamientos</a></li>
+            <li><a href="{{ route('home.index') }}" class="{{ request()->routeIs('home.*') ? 'active' : '' }}">Inicio</a></li>
+            {{-- Cada enlace apunta a su módulo apenas exista la ruta (Route::has); mientras tanto queda en "#" --}}
+            <li><a href="{{ Route::has('pacientes.index') ? route('pacientes.index') : '#' }}" class="{{ request()->routeIs('pacientes.*') ? 'active' : '' }}">Pacientes</a></li>
+            <li><a href="{{ Route::has('citas.index') ? route('citas.index') : '#' }}" class="{{ request()->routeIs('citas.*') ? 'active' : '' }}">Citas</a></li>
+            <li><a href="{{ Route::has('usuarios.index') ? route('usuarios.index') : '#' }}" class="{{ request()->routeIs('usuarios.*') ? 'active' : '' }}">Usuarios</a></li>
+            <li><a href="{{ Route::has('roles.index') ? route('roles.index') : '#' }}" class="{{ request()->routeIs('roles.*') ? 'active' : '' }}">Roles</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
-        <a class="cta-btn" href="#citas">Agendar Cita</a>
+        <a class="cta-btn" href="{{ Route::has('citas.create') ? route('citas.create') : '#' }}">Agendar Cita</a>
 
       </div>
 

@@ -5,4 +5,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
-include('web/sections.php');
+// Un archivo de rutas por módulo. Cuando crees uno nuevo, inclúyelo aquí.
+include('web/pacientes.php');
