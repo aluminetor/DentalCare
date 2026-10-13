@@ -117,7 +117,20 @@ class CitasController extends Controller
                 'El estado seleccionado no es válido.',
         ];
     }
+    private function esOdontologo(): bool
+    {
+        return auth()->user()?->rol?->nombre === 'Odontólogo';
+    }
 
+    private function autorizarCita(Cita $cita): void
+    {
+        if (
+            $this->esOdontologo()
+            && (int) $cita->odontologo_id !== (int) auth()->id()
+        ) {
+            abort(403, 'No tienes permiso para acceder a esta cita.');
+        }
+    }
     private function existeConflicto(array $datos, ?int $ignorarId = null): bool
     {
         // Las citas canceladas no ocupan el horario.
@@ -139,7 +152,13 @@ class CitasController extends Controller
 
     public function index()
     {
-        $citas = Cita::with(['paciente', 'odontologo'])
+        $consulta = Cita::with(['paciente', 'odontologo']);
+
+        if ($this->esOdontologo()) {
+            $consulta->where('odontologo_id', auth()->id());
+        }
+
+        $citas = $consulta
             ->orderBy('fecha', 'desc')
             ->orderBy('hora', 'desc')
             ->get();
@@ -180,6 +199,9 @@ class CitasController extends Controller
     public function edit($id)
     {
         $cita = Cita::findOrFail($id);
+
+        $this->autorizarCita($cita);
+
         $pacientes = $this->obtenerPacientes();
         $odontologos = $this->obtenerOdontologos();
 
@@ -193,6 +215,7 @@ class CitasController extends Controller
     public function update(Request $request, $id)
     {
         $cita = Cita::findOrFail($id);
+        $this->autorizarCita($cita);
 
         $datos = $request->validate(
             $this->reglasValidacion(),
@@ -217,6 +240,9 @@ class CitasController extends Controller
     public function destroy($id)
     {
         $cita = Cita::findOrFail($id);
+
+        $this->autorizarCita($cita);
+
         $cita->delete();
 
         return redirect()
