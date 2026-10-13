@@ -35,7 +35,11 @@ class CitasController extends Controller
     {
         $rolId = Rol::where('nombre', 'Odontólogo')->value('id');
 
-        $reglasOdontologo = ['required', 'integer', 'exists:users,id'];
+        $reglasOdontologo = [
+            'required',
+            'integer',
+            'exists:users,id',
+        ];
 
         if ($rolId) {
             $reglasOdontologo[] = Rule::in(
@@ -46,17 +50,91 @@ class CitasController extends Controller
         }
 
         return [
-            'paciente_id' => ['required', 'integer', 'exists:pacientes,id'],
+            'paciente_id' => [
+                'required',
+                'integer',
+                'exists:pacientes,id',
+            ],
             'odontologo_id' => $reglasOdontologo,
-            'fecha' => ['required', 'date'],
-            'hora' => ['required', 'date_format:H:i'],
-            'motivo' => ['required', 'string', 'max:200'],
+            'fecha' => [
+                'required',
+                'date',
+                'after_or_equal:today',
+            ],
+            'hora' => [
+                'required',
+                'date_format:H:i',
+            ],
+            'motivo' => [
+                'required',
+                'string',
+                'max:200',
+            ],
             'estado' => [
                 'required',
-                Rule::in(['Pendiente', 'Confirmada', 'Atendida', 'Cancelada']),
+                Rule::in([
+                    'Pendiente',
+                    'Confirmada',
+                    'Atendida',
+                    'Cancelada',
+                ]),
             ],
-            'observaciones' => ['nullable', 'string'],
+            'observaciones' => [
+                'nullable',
+                'string',
+            ],
         ];
+    }
+
+    private function mensajesValidacion(): array
+    {
+        return [
+            'paciente_id.required' =>
+                'Debes seleccionar un paciente.',
+            'paciente_id.exists' =>
+                'El paciente seleccionado no existe.',
+            'odontologo_id.required' =>
+                'Debes seleccionar un odontólogo.',
+            'odontologo_id.in' =>
+                'El usuario seleccionado no tiene el rol de odontólogo.',
+            'odontologo_id.exists' =>
+                'El odontólogo seleccionado no existe.',
+            'fecha.required' =>
+                'Debes seleccionar una fecha.',
+            'fecha.after_or_equal' =>
+                'La fecha de la cita no puede ser anterior a hoy.',
+            'hora.required' =>
+                'Debes seleccionar una hora.',
+            'hora.date_format' =>
+                'La hora seleccionada no tiene un formato válido.',
+            'motivo.required' =>
+                'Debes indicar el motivo de la cita.',
+            'motivo.max' =>
+                'El motivo no puede superar los 200 caracteres.',
+            'estado.required' =>
+                'Debes seleccionar un estado válido.',
+            'estado.in' =>
+                'El estado seleccionado no es válido.',
+        ];
+    }
+
+    private function existeConflicto(array $datos, ?int $ignorarId = null): bool
+    {
+        // Las citas canceladas no ocupan el horario.
+        if ($datos['estado'] === 'Cancelada') {
+            return false;
+        }
+
+        $consulta = Cita::where('odontologo_id', $datos['odontologo_id'])
+            ->where('fecha', $datos['fecha'])
+            ->whereTime('hora', $datos['hora'])
+            ->where('estado', '!=', 'Cancelada');
+
+        if ($ignorarId !== null) {
+            $consulta->where('id', '!=', $ignorarId);
+        }
+
+        return $consulta->exists();
     }
 
     public function index()
@@ -79,7 +157,18 @@ class CitasController extends Controller
 
     public function store(Request $request)
     {
-        $datos = $request->validate($this->reglasValidacion());
+        $datos = $request->validate(
+            $this->reglasValidacion(),
+            $this->mensajesValidacion()
+        );
+
+        if ($this->existeConflicto($datos)) {
+            return back()
+                ->withErrors([
+                    'hora' => 'Este odontólogo ya tiene una cita activa en esa fecha y hora. Selecciona otro horario.',
+                ])
+                ->withInput();
+        }
 
         Cita::create($datos);
 
@@ -94,14 +183,29 @@ class CitasController extends Controller
         $pacientes = $this->obtenerPacientes();
         $odontologos = $this->obtenerOdontologos();
 
-        return view('citas.edit', compact('cita', 'pacientes', 'odontologos'));
+        return view('citas.edit', compact(
+            'cita',
+            'pacientes',
+            'odontologos'
+        ));
     }
 
     public function update(Request $request, $id)
     {
         $cita = Cita::findOrFail($id);
 
-        $datos = $request->validate($this->reglasValidacion());
+        $datos = $request->validate(
+            $this->reglasValidacion(),
+            $this->mensajesValidacion()
+        );
+
+        if ($this->existeConflicto($datos, $cita->id)) {
+            return back()
+                ->withErrors([
+                    'hora' => 'Este odontólogo ya tiene otra cita activa en esa fecha y hora. Selecciona otro horario.',
+                ])
+                ->withInput();
+        }
 
         $cita->update($datos);
 
