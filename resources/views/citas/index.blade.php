@@ -28,6 +28,29 @@
                 </div>
             @endif
 
+            <form class="navbar-search" method="GET" action="{{ route('citas.index') }}">
+                <div class="row mt-2 mb-3 g-2 align-items-center">
+                    <div class="col-md-auto">
+                        <select class="form-select bg-light border-0 small" name="records_per_page">
+                            <option {{ $data->records_per_page == 2 ? 'selected' : '' }} value="2">2</option>
+                            <option {{ $data->records_per_page == 10 ? 'selected' : '' }} value="10">10</option>
+                            <option {{ $data->records_per_page == 15 ? 'selected' : '' }} value="15">15</option>
+                            <option {{ $data->records_per_page == 30 ? 'selected' : '' }} value="30">30</option>
+                            <option {{ $data->records_per_page == 50 ? 'selected' : '' }} value="50">50</option>
+                        </select>
+                    </div>
+
+                    <div class="col">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar por paciente, odontólogo, motivo, estado o fecha..." aria-label="Search" name="filter" value="{{ $data->filter }}">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
             <div class="table-responsive">
                 <table class="table table-hover align-middle">
                     <thead>
@@ -103,6 +126,8 @@
                     </tbody>
                 </table>
             </div>
+
+            {{ $citas->appends(request()->except('page'))->links('components.custom-pagination') }}
 
             <a href="{{ route('home.index') }}" class="btn btn-secondary mt-3">
                 Volver
