@@ -10,13 +10,35 @@ use Illuminate\Validation\Rule;
 
 class UsuariosController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $usuarios = User::with('rol')
-            ->orderBy('name', 'asc')
-            ->paginate(10);
+        if (!empty($request->records_per_page)) {
 
-        return view('usuarios.index', compact('usuarios'));
+            $request->records_per_page = $request->records_per_page <= env('PAGINATION_MAX_SIZE', 50)
+                                            ? $request->records_per_page
+                                            : env('PAGINATION_MAX_SIZE', 50);
+        } else {
+
+            $request->records_per_page = env('PAGINATION_DEFAULT', 15);
+        }
+
+        $usuarios = User::with('rol')
+            ->where(function ($query) use ($request) {
+                $query->where('name', 'LIKE', "%$request->filter%")
+                      ->orWhere('apellido', 'LIKE', "%$request->filter%")
+                      ->orWhere('email', 'LIKE', "%$request->filter%")
+                      ->orWhere('especialidad', 'LIKE', "%$request->filter%")
+                      ->orWhereHas('rol', function ($q) use ($request) {
+                          $q->where('nombre', 'LIKE', "%$request->filter%");
+                      });
+            })
+            ->orderBy('name', 'asc')
+            ->paginate($request->records_per_page);
+
+        return view('usuarios.index', [
+            'usuarios' => $usuarios,
+            'data' => $request,
+        ]);
     }
 
     public function create()

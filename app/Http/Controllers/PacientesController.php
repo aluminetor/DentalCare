@@ -16,13 +16,29 @@ use Illuminate\Support\Facades\Validator;
 class PacientesController extends Controller
 {
     // Listar
-    public function index() {
+    public function index(Request $request) {
 
-        $pacientes = Paciente::orderBy('apellido', 'asc')
-    ->orderBy('nombre', 'asc')
-    ->get();
+        if (!empty($request->records_per_page)) {
 
-        return view('pacientes/index', [ 'pacientes' => $pacientes ]);
+            $request->records_per_page = $request->records_per_page <= env('PAGINATION_MAX_SIZE', 50)
+                                            ? $request->records_per_page
+                                            : env('PAGINATION_MAX_SIZE', 50);
+        } else {
+
+            $request->records_per_page = env('PAGINATION_DEFAULT', 15);
+        }
+
+        $pacientes = Paciente::where(function ($query) use ($request) {
+                $query->where('nombre', 'LIKE', "%$request->filter%")
+                      ->orWhere('apellido', 'LIKE', "%$request->filter%")
+                      ->orWhere('documento', 'LIKE', "%$request->filter%")
+                      ->orWhere('telefono', 'LIKE', "%$request->filter%");
+            })
+            ->orderBy('apellido', 'asc')
+            ->orderBy('nombre', 'asc')
+            ->paginate($request->records_per_page);
+
+        return view('pacientes/index', [ 'pacientes' => $pacientes, 'data' => $request ]);
     }
 
     // Mostrar el formulario vacío

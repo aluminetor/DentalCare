@@ -150,20 +150,51 @@ class CitasController extends Controller
         return $consulta->exists();
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        if (!empty($request->records_per_page)) {
+
+            $request->records_per_page = $request->records_per_page <= env('PAGINATION_MAX_SIZE', 50)
+                                            ? $request->records_per_page
+                                            : env('PAGINATION_MAX_SIZE', 50);
+        } else {
+
+            $request->records_per_page = env('PAGINATION_DEFAULT', 15);
+        }
+
         $consulta = Cita::with(['paciente', 'odontologo']);
 
         if ($this->esOdontologo()) {
             $consulta->where('odontologo_id', auth()->id());
         }
 
+        if (!empty($request->filter)) {
+            $filtro = $request->filter;
+            $consulta->where(function ($query) use ($filtro) {
+                $query->where('motivo', 'LIKE', "%$filtro%")
+                      ->orWhere('estado', 'LIKE', "%$filtro%")
+                      ->orWhere('fecha', 'LIKE', "%$filtro%")
+                      ->orWhereHas('paciente', function ($q) use ($filtro) {
+                          $q->where('nombre', 'LIKE', "%$filtro%")
+                            ->orWhere('apellido', 'LIKE', "%$filtro%")
+                            ->orWhere('documento', 'LIKE', "%$filtro%");
+                      })
+                      ->orWhereHas('odontologo', function ($q) use ($filtro) {
+                          $q->where('name', 'LIKE', "%$filtro%")
+                            ->orWhere('apellido', 'LIKE', "%$filtro%");
+                      });
+            });
+        }
+
         $citas = $consulta
             ->orderBy('fecha', 'desc')
             ->orderBy('hora', 'desc')
-            ->get();
+            ->paginate($request->records_per_page);
 
-        return view('citas.index', compact('citas'));
+        return view('citas.index', [
+            'citas' => $citas,
+            'data' => $request,
+        ]);
     }
 
     public function create()

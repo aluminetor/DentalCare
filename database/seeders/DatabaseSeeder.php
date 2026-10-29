@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Paciente;
 use App\Models\Permiso;
 use App\Models\Rol;
-use App\Models\User;
 use Illuminate\Database\Seeder;
 
 /**
@@ -74,20 +73,7 @@ class DatabaseSeeder extends Seeder
         }
 
         // 4. Un usuario de cada rol para poder probar (contraseña: password)
-        $usuarios = [
-            ['Ana', 'Admin', 'admin@dentalcare.test', 'Administrador', null],
-            ['Rosa', 'Recepción', 'recepcion@dentalcare.test', 'Recepcionista', null],
-            ['Carlos', 'Mejía', 'odontologo@dentalcare.test', 'Odontólogo', 'Odontología general'],
-        ];
-        foreach ($usuarios as [$name, $apellido, $email, $rol, $especialidad]) {
-            User::updateOrCreate(['email' => $email], [
-                'name' => $name,
-                'apellido' => $apellido,
-                'password' => 'password',   // el modelo User la guarda cifrada (hash)
-                'especialidad' => $especialidad,
-                'rol_id' => Rol::where('nombre', $rol)->value('id'),
-            ]);
-        }
+        $this->call(UserSeeder::class);
 
         // 5. Pacientes de ejemplo
         $pacientes = [
