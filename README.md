@@ -3,6 +3,8 @@
 Aplicación web para gestionar **pacientes y citas** de una clínica odontológica, con usuarios, roles y permisos dinámicos.
 Proyecto grupal de la materia de PHP (Laravel + MySQL + Bootstrap).
 
+> Cambio de prueba del README.
+
 > Los documentos de diseño están en [`docs/`](docs): la **matriz de permisos** (`.xlsx`, con la base de datos y las reglas de negocio) y el **diagrama ERD** (`.drawio`, se abre en https://app.diagrams.net). **Si algo del código contradice esos documentos, mandan los documentos.**
 
 ## Stack
