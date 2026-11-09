@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 @include('layouts.head')
 
@@ -24,7 +24,7 @@
 
   @include('layouts.scripts')
 
-  {{-- Aquí se imprimen los scripts que cada vista agrega con @push('scripts') --}}
+  {{-- Scripts pushed by individual views using @push('scripts') --}}
   @stack('scripts')
 
 </body>

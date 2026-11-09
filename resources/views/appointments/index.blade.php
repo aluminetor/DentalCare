@@ -4,9 +4,9 @@
 <div class="container py-4">
     <div class="card shadow-sm">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Listado de citas</h5>
-            <a href="{{ route('citas.create') }}" class="btn btn-primary btn-sm">
-                Nueva cita
+            <h5 class="mb-0">Appointments List</h5>
+            <a href="{{ route('appointments.create') }}" class="btn btn-primary btn-sm">
+                New Appointment
             </a>
         </div>
 
@@ -28,7 +28,7 @@
                 </div>
             @endif
 
-            <form class="navbar-search" method="GET" action="{{ route('citas.index') }}">
+            <form class="navbar-search" method="GET" action="{{ route('appointments.index') }}">
                 <div class="row mt-2 mb-3 g-2 align-items-center">
                     <div class="col-md-auto">
                         <select class="form-select bg-light border-0 small" name="records_per_page">
@@ -42,7 +42,7 @@
 
                     <div class="col">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar por paciente, odontólogo, motivo, estado o fecha..." aria-label="Search" name="filter" value="{{ $data->filter }}">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search by patient, dentist, reason, status, or date..." aria-label="Search" name="filter" value="{{ $data->filter }}">
                             <button class="btn btn-primary" type="submit">
                                 <i class="bi bi-search"></i>
                             </button>
@@ -55,63 +55,63 @@
                 <table class="table table-hover align-middle">
                     <thead>
                         <tr>
-                            <th>Paciente</th>
-                            <th>Odontólogo</th>
-                            <th>Fecha</th>
-                            <th>Hora</th>
-                            <th>Motivo</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
+                            <th>Patient</th>
+                            <th>Dentist</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Reason</th>
+                            <th>Status</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        @forelse ($citas as $cita)
+                        @forelse ($appointments as $appointment)
                             <tr>
                                 <td>
-                                    {{ $cita->paciente->nombre ?? 'Sin paciente' }}
-                                    {{ $cita->paciente->apellido ?? '' }}
+                                    {{ $appointment->patient->first_name ?? 'No patient' }}
+                                    {{ $appointment->patient->last_name ?? '' }}
                                 </td>
 
                                 <td>
-                                    {{ $cita->odontologo->name ?? 'Sin odontólogo' }}
-                                    {{ $cita->odontologo->apellido ?? '' }}
+                                    {{ $appointment->dentist->name ?? 'No dentist' }}
+                                    {{ $appointment->dentist->last_name ?? '' }}
                                 </td>
 
-                                <td>{{ $cita->fecha->format('d/m/Y') }}</td>
-                                <td>{{ substr($cita->hora, 0, 5) }}</td>
-                                <td>{{ $cita->motivo }}</td>
+                                <td>{{ $appointment->date->format('d/m/Y') }}</td>
+                                <td>{{ substr($appointment->time, 0, 5) }}</td>
+                                <td>{{ $appointment->reason }}</td>
 
                                 <td>
                                     @php
-                                        $colores = [
-                                            'Pendiente' => 'warning',
-                                            'Confirmada' => 'primary',
-                                            'Atendida' => 'success',
-                                            'Cancelada' => 'danger',
+                                        $colors = [
+                                            'Pending' => 'warning',
+                                            'Confirmed' => 'primary',
+                                            'Completed' => 'success',
+                                            'Cancelled' => 'danger',
                                         ];
                                     @endphp
 
-                                    <span class="badge bg-{{ $colores[$cita->estado] ?? 'secondary' }}">
-                                        {{ $cita->estado }}
+                                    <span class="badge bg-{{ $colors[$appointment->status] ?? 'secondary' }}">
+                                        {{ $appointment->status }}
                                     </span>
                                 </td>
 
                                 <td class="text-nowrap">
-                                    <a href="{{ route('citas.edit', $cita->id) }}"
+                                    <a href="{{ route('appointments.edit', $appointment->id) }}"
                                     class="btn btn-warning btn-sm">
-                                        Editar
+                                        Edit
                                     </a>
 
-                                    <form action="{{ route('citas.delete', $cita->id) }}"
+                                    <form action="{{ route('appointments.delete', $appointment->id) }}"
                                         method="POST"
                                         class="d-inline"
-                                        onsubmit="return confirm('¿Seguro que deseas eliminar esta cita?');">
+                                        onsubmit="return confirm('Are you sure you want to delete this appointment?');">
                                         @csrf
                                         @method('DELETE')
 
                                         <button type="submit" class="btn btn-danger btn-sm">
-                                            Eliminar
+                                            Delete
                                         </button>
                                     </form>
                                 </td>
@@ -119,7 +119,7 @@
                         @empty
                             <tr>
                                 <td colspan="7" class="text-center text-muted py-4">
-                                    No hay citas registradas.
+                                    No appointments registered.
                                 </td>
                             </tr>
                         @endforelse
@@ -127,10 +127,10 @@
                 </table>
             </div>
 
-            {{ $citas->appends(request()->except('page'))->links('components.custom-pagination') }}
+            {{ $appointments->appends(request()->except('page'))->links('components.custom-pagination') }}
 
             <a href="{{ route('home.index') }}" class="btn btn-secondary mt-3">
-                Volver
+                Back
             </a>
         </div>
     </div>

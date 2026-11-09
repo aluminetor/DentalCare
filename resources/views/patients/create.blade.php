@@ -1,20 +1,19 @@
-
 @extends('layouts.app')
 
 @section('content')
 <div class="container py-4">
     <div class="card shadow-sm">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Registrar paciente</h5>
-            <a href="{{ route('pacientes.index') }}" class="btn btn-outline-secondary btn-sm">
-                Volver al listado
+            <h5 class="mb-0">Register Patient</h5>
+            <a href="{{ route('patients.index') }}" class="btn btn-outline-secondary btn-sm">
+                Back to list
             </a>
         </div>
 
         <div class="card-body">
             @if ($errors->any())
                 <div class="alert alert-danger">
-                    <strong>Revisa los siguientes campos:</strong>
+                    <strong>Please check the following fields:</strong>
                     <ul class="mb-0 mt-2">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -23,101 +22,101 @@
                 </div>
             @endif
 
-            <form action="{{ route('pacientes.store') }}" method="POST">
+            <form action="{{ route('patients.store') }}" method="POST">
                 @csrf
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="nombre" class="form-label">Nombre *</label>
+                        <label for="first_name" class="form-label">First Name *</label>
                         <input
                             type="text"
-                            id="nombre"
-                            name="nombre"
-                            class="form-control @error('nombre') is-invalid @enderror"
+                            id="first_name"
+                            name="first_name"
+                            class="form-control @error('first_name') is-invalid @enderror"
                             maxlength="60"
-                            value="{{ old('nombre') }}"
+                            value="{{ old('first_name') }}"
                             required
                         >
-                        @error('nombre')
+                        @error('first_name')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="apellido" class="form-label">Apellido *</label>
+                        <label for="last_name" class="form-label">Last Name *</label>
                         <input
                             type="text"
-                            id="apellido"
-                            name="apellido"
-                            class="form-control @error('apellido') is-invalid @enderror"
+                            id="last_name"
+                            name="last_name"
+                            class="form-control @error('last_name') is-invalid @enderror"
                             maxlength="60"
-                            value="{{ old('apellido') }}"
+                            value="{{ old('last_name') }}"
                             required
                         >
-                        @error('apellido')
+                        @error('last_name')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="documento" class="form-label">Documento *</label>
+                        <label for="document" class="form-label">Document *</label>
                         <input
                             type="text"
-                            id="documento"
-                            name="documento"
-                            class="form-control @error('documento') is-invalid @enderror"
+                            id="document"
+                            name="document"
+                            class="form-control @error('document') is-invalid @enderror"
                             maxlength="20"
-                            value="{{ old('documento') }}"
+                            value="{{ old('document') }}"
                             required
                         >
-                        @error('documento')
+                        @error('document')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="telefono" class="form-label">Teléfono *</label>
+                        <label for="phone" class="form-label">Phone *</label>
                         <input
                             type="tel"
-                            id="telefono"
-                            name="telefono"
-                            class="form-control @error('telefono') is-invalid @enderror"
+                            id="phone"
+                            name="phone"
+                            class="form-control @error('phone') is-invalid @enderror"
                             maxlength="20"
-                            value="{{ old('telefono') }}"
+                            value="{{ old('phone') }}"
                             required
                         >
-                        @error('telefono')
+                        @error('phone')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="fecha_nacimiento" class="form-label">
-                            Fecha de nacimiento *
+                        <label for="birth_date" class="form-label">
+                            Birth Date *
                         </label>
                         <input
                             type="date"
-                            id="fecha_nacimiento"
-                            name="fecha_nacimiento"
-                            class="form-control @error('fecha_nacimiento') is-invalid @enderror"
+                            id="birth_date"
+                            name="birth_date"
+                            class="form-control @error('birth_date') is-invalid @enderror"
                             max="{{ now()->format('Y-m-d') }}"
-                            value="{{ old('fecha_nacimiento') }}"
+                            value="{{ old('birth_date') }}"
                             required
                         >
-                        @error('fecha_nacimiento')
+                        @error('birth_date')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
 
-                <p class="text-muted small">* Campos obligatorios.</p>
+                <p class="text-muted small">* Required fields.</p>
 
                 <button type="submit" class="btn btn-primary">
-                    Guardar paciente
+                    Save Patient
                 </button>
 
-                <a href="{{ route('pacientes.index') }}" class="btn btn-secondary">
-                    Cancelar
+                <a href="{{ route('patients.index') }}" class="btn btn-secondary">
+                    Cancel
                 </a>
             </form>
         </div>

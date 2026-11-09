@@ -10,21 +10,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'apellido', 'email', 'password', 'telefono', 'especialidad', 'rol_id'])]
+#[Fillable(['name', 'last_name', 'email', 'password', 'phone', 'specialty', 'role_id'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
-    public function rol()
+    public function role()
     {
-        return $this->belongsTo(Rol::class, 'rol_id');
+        return $this->belongsTo(Role::class, 'role_id');
     }
 
-    public function citas()
+    public function appointments()
     {
-        return $this->hasMany(Cita::class, 'odontologo_id');
+        return $this->hasMany(Appointment::class, 'dentist_id');
     }
 
     /**

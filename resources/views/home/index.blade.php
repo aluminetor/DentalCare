@@ -8,11 +8,11 @@
       <div id="hero-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
 
         <div class="carousel-item active">
-          <img src="assets/img/hero-carousel/hero-carousel-1.jpg" alt="Clínica DentalCare">
+          <img src="assets/img/hero-carousel/hero-carousel-1.jpg" alt="DentalCare Clinic">
           <div class="container">
-            <h2>Bienvenidos a DentalCare</h2>
-            <p>Atención odontológica integral y especializada para toda la familia.</p>
-            <a href="#citas" class="btn-get-started">Agendar Cita</a>
+            <h2>Welcome to DentalCare</h2>
+            <p>Comprehensive and specialized dental care for the whole family.</p>
+            <a href="#appointments" class="btn-get-started">Book Appointment</a>
           </div>
         </div><!-- End Carousel Item -->
 
@@ -32,32 +32,32 @@
           <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
             <div class="service-item position-relative">
               <div class="icon"><i class="fas fa-tooth icon"></i></div>
-              <h4><a href="#tratamientos" class="stretched-link">Limpieza Dental</a></h4>
-              <p>Higiene profesional para una sonrisa sana y protegida.</p>
+              <h4><a href="#treatments" class="stretched-link">Dental Cleaning</a></h4>
+              <p>Professional hygiene for a healthy and protected smile.</p>
             </div>
           </div><!-- End Service Item -->
 
           <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
             <div class="service-item position-relative">
               <div class="icon"><i class="fas fa-teeth-open icon"></i></div>
-              <h4><a href="#tratamientos" class="stretched-link">Ortodoncia</a></h4>
-              <p>Corrección de la alineación dental con brackets y alineadores.</p>
+              <h4><a href="#treatments" class="stretched-link">Orthodontics</a></h4>
+              <p>Dental alignment correction with braces and clear aligners.</p>
             </div>
           </div><!-- End Service Item -->
 
           <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="300">
             <div class="service-item position-relative">
               <div class="icon"><i class="fas fa-tooth icon"></i></div>
-              <h4><a href="#tratamientos" class="stretched-link">Endodoncia</a></h4>
-              <p>Tratamiento de conducto para salvar tus dientes naturales.</p>
+              <h4><a href="#treatments" class="stretched-link">Endodontics</a></h4>
+              <p>Root canal treatment to preserve your natural teeth.</p>
             </div>
           </div><!-- End Service Item -->
 
           <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="400">
             <div class="service-item position-relative">
               <div class="icon"><i class="fas fa-smile icon"></i></div>
-              <h4><a href="#tratamientos" class="stretched-link">Estética Dental</a></h4>
-              <p>Blanqueamiento y diseño de sonrisa a tu medida.</p>
+              <h4><a href="#treatments" class="stretched-link">Cosmetic Dentistry</a></h4>
+              <p>Teeth whitening and custom smile design.</p>
             </div>
           </div><!-- End Service Item -->
 
@@ -72,28 +72,28 @@
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Nosotros<br></h2>
-        <p>Cuidamos tu salud bucal con tecnología moderna y trato humano</p>
+        <h2>About Us<br></h2>
+        <p>We care for your oral health with modern technology and a human touch</p>
       </div><!-- End Section Title -->
 
       <div class="container">
 
         <div class="row gy-4">
           <div class="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="100">
-            <img src="assets/img/about.jpg" class="img-fluid" alt="Nuestra clínica">
+            <img src="assets/img/about.jpg" class="img-fluid" alt="Our clinic">
           </div>
           <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="200">
-            <h3>Tu sonrisa en manos de especialistas.</h3>
+            <h3>Your smile in the hands of specialists.</h3>
             <p class="fst-italic">
-              Clínica odontológica enfocada en prevención, diagnóstico y tratamiento integral.
+              Dental clinic focused on prevention, diagnosis, and comprehensive treatment.
             </p>
             <ul>
-              <li><i class="bi bi-check2-all"></i> <span>Odontólogos certificados en cada especialidad.</span></li>
-              <li><i class="bi bi-check2-all"></i> <span>Historias clínicas digitales y seguimiento por paciente.</span></li>
-              <li><i class="bi bi-check2-all"></i> <span>Agenda de citas ordenada y recordatorios oportunos.</span></li>
+              <li><i class="bi bi-check2-all"></i> <span>Certified dentists in every specialty.</span></li>
+              <li><i class="bi bi-check2-all"></i> <span>Digital medical records and patient follow-up.</span></li>
+              <li><i class="bi bi-check2-all"></i> <span>Organized appointment scheduling and timely reminders.</span></li>
             </ul>
             <p>
-              En DentalCare priorizamos la prevención y la atención personalizada para toda la familia.
+              At DentalCare we prioritize prevention and personalized care for the whole family.
             </p>
           </div>
         </div>
@@ -113,8 +113,8 @@
             <div class="stats-item d-flex align-items-center w-100 h-100">
               <i class="fas fa-user-md flex-shrink-0"></i>
               <div>
-                <span data-purecounter-start="0" data-purecounter-end="{{ $totalOdontologos ?? 0 }}" data-purecounter-duration="1" class="purecounter"></span>
-                <p>Odontólogos</p>
+                <span data-purecounter-start="0" data-purecounter-end="{{ $totalDentists ?? 0 }}" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Dentists</p>
               </div>
             </div>
           </div><!-- End Stats Item -->
@@ -123,8 +123,8 @@
             <div class="stats-item d-flex align-items-center w-100 h-100">
               <i class="far fa-smile flex-shrink-0"></i>
               <div>
-                <span data-purecounter-start="0" data-purecounter-end="{{ $totalPacientes ?? 0 }}" data-purecounter-duration="1" class="purecounter"></span>
-                <p>Pacientes</p>
+                <span data-purecounter-start="0" data-purecounter-end="{{ $totalPatients ?? 0 }}" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Patients</p>
               </div>
             </div>
           </div><!-- End Stats Item -->
@@ -133,8 +133,8 @@
             <div class="stats-item d-flex align-items-center w-100 h-100">
               <i class="fas fa-calendar-check flex-shrink-0"></i>
               <div>
-                <span data-purecounter-start="0" data-purecounter-end="{{ $totalCitasAtendidas ?? 0 }}" data-purecounter-duration="1" class="purecounter"></span>
-                <p>Citas atendidas</p>
+                <span data-purecounter-start="0" data-purecounter-end="{{ $totalCompletedAppointments ?? 0 }}" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Completed Appointments</p>
               </div>
             </div>
           </div><!-- End Stats Item -->
@@ -144,7 +144,7 @@
               <i class="fas fa-award flex-shrink-0"></i>
               <div>
                 <span data-purecounter-start="0" data-purecounter-end="10" data-purecounter-duration="1" class="purecounter"></span>
-                <p>Años de experiencia</p>
+                <p>Years of Experience</p>
               </div>
             </div>
           </div><!-- End Stats Item -->
@@ -156,12 +156,12 @@
     </section><!-- /Stats Section -->
 
     <!-- Services Section -->
-    <section id="tratamientos" class="services section">
+    <section id="treatments" class="services section">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Tratamientos</h2>
-        <p>Servicios odontológicos esenciales para tu salud bucal</p>
+        <h2>Treatments</h2>
+        <p>Essential dental services for your oral health</p>
       </div><!-- End Section Title -->
 
       <div class="container">
@@ -174,9 +174,9 @@
                 <i class="fas fa-tooth"></i>
               </div>
               <a href="#" class="stretched-link">
-                <h3>Limpieza Dental</h3>
+                <h3>Dental Cleaning</h3>
               </a>
-              <p>Profilaxis e higiene profesional para prevenir caries y enfermedad periodontal.</p>
+              <p>Prophylaxis and professional hygiene to prevent cavities and periodontal disease.</p>
             </div>
           </div><!-- End Service Item -->
 
@@ -186,9 +186,9 @@
                 <i class="fas fa-teeth-open"></i>
               </div>
               <a href="#" class="stretched-link">
-                <h3>Ortodoncia</h3>
+                <h3>Orthodontics</h3>
               </a>
-              <p>Alineación dental con brackets metálicos, estéticos o alineadores.</p>
+              <p>Dental alignment with metal braces, ceramic braces, or clear aligners.</p>
             </div>
           </div><!-- End Service Item -->
 
@@ -198,9 +198,9 @@
                 <i class="fas fa-syringe"></i>
               </div>
               <a href="#" class="stretched-link">
-                <h3>Endodoncia</h3>
+                <h3>Endodontics</h3>
               </a>
-              <p>Tratamiento de conducto para conservar dientes con daño pulpar.</p>
+              <p>Root canal treatment to preserve teeth with pulp damage.</p>
             </div>
           </div><!-- End Service Item -->
 
@@ -210,9 +210,9 @@
                 <i class="fas fa-smile"></i>
               </div>
               <a href="#" class="stretched-link">
-                <h3>Estética Dental</h3>
+                <h3>Cosmetic Dentistry</h3>
               </a>
-              <p>Blanqueamiento, carillas y diseño de sonrisa personalizado.</p>
+              <p>Teeth whitening, veneers, and personalized smile design.</p>
             </div>
           </div><!-- End Service Item -->
 
@@ -222,9 +222,9 @@
                 <i class="fas fa-tooth"></i>
               </div>
               <a href="#" class="stretched-link">
-                <h3>Implantes</h3>
+                <h3>Dental Implants</h3>
               </a>
-              <p>Reemplazo fijo y funcional de piezas dentales perdidas.</p>
+              <p>Fixed and functional replacement for missing teeth.</p>
             </div>
           </div><!-- End Service Item -->
 
@@ -234,9 +234,9 @@
                 <i class="fas fa-child"></i>
               </div>
               <a href="#" class="stretched-link">
-                <h3>Odontopediatría</h3>
+                <h3>Pediatric Dentistry</h3>
               </a>
-              <p>Atención dental especializada para niños y adolescentes.</p>
+              <p>Specialized dental care for children and adolescents.</p>
             </div>
           </div><!-- End Service Item -->
 
@@ -247,12 +247,12 @@
     </section><!-- /Services Section -->
 
     <!-- Appointment Section -->
-    <section id="citas" class="appointment section light-background">
+    <section id="appointments" class="appointment section light-background">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Agendar Cita</h2>
-        <p>Reserva tu consulta odontológica en pocos pasos</p>
+        <h2>Book Appointment</h2>
+        <p>Schedule your dental consultation in just a few steps</p>
       </div><!-- End Section Title -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -260,42 +260,42 @@
         <form action="#" method="post" role="form" class="php-email-form">
           <div class="row">
             <div class="col-md-4 form-group">
-              <input type="text" name="name" class="form-control" id="name" placeholder="Tu nombre" required="">
+              <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required="">
             </div>
             <div class="col-md-4 form-group mt-3 mt-md-0">
-              <input type="email" class="form-control" name="email" id="email" placeholder="Tu correo" required="">
+              <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required="">
             </div>
             <div class="col-md-4 form-group mt-3 mt-md-0">
-              <input type="tel" class="form-control" name="phone" id="phone" placeholder="Tu teléfono" required="">
+              <input type="tel" class="form-control" name="phone" id="phone" placeholder="Your Phone" required="">
             </div>
           </div>
           <div class="row">
             <div class="col-md-4 form-group mt-3">
-              <input type="datetime-local" name="date" class="form-control datepicker" id="date" placeholder="Fecha de la cita" required="">
+              <input type="datetime-local" name="date" class="form-control datepicker" id="date" placeholder="Appointment Date" required="">
             </div>
             <div class="col-md-4 form-group mt-3">
               <select name="department" id="department" class="form-select" required="">
-                <option value="">Seleccionar tratamiento</option>
-                <option value="limpieza">Limpieza dental</option>
-                <option value="ortodoncia">Ortodoncia</option>
-                <option value="endodoncia">Endodoncia</option>
+                <option value="">Select Treatment</option>
+                <option value="cleaning">Dental Cleaning</option>
+                <option value="orthodontics">Orthodontics</option>
+                <option value="endodontics">Endodontics</option>
               </select>
             </div>
             <div class="col-md-4 form-group mt-3">
               <select name="doctor" id="doctor" class="form-select" required="">
-                <option value="">Seleccionar odontólogo</option>
-                <option value="doctor-1">Odontólogo 1</option>
-                <option value="doctor-2">Odontólogo 2</option>
-                <option value="doctor-3">Odontólogo 3</option>
+                <option value="">Select Dentist</option>
+                <option value="doctor-1">Dentist 1</option>
+                <option value="doctor-2">Dentist 2</option>
+                <option value="doctor-3">Dentist 3</option>
               </select>
             </div>
           </div>
 
           <div class="form-group mt-3">
-            <textarea class="form-control" name="message" rows="5" placeholder="Motivo de la consulta (opcional)"></textarea>
+            <textarea class="form-control" name="message" rows="5" placeholder="Reason for consultation (optional)"></textarea>
           </div>
           <div class="mt-3">
-            <div class="text-center"><button type="submit">Agendar Cita</button></div>
+            <div class="text-center"><button type="submit">Book Appointment</button></div>
           </div>
         </form>
 
@@ -304,12 +304,12 @@
     </section><!-- /Appointment Section -->
 
     <!-- Doctors Section -->
-    <section id="odontologos" class="doctors section light-background">
+    <section id="dentists" class="doctors section light-background">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Odontólogos</h2>
-        <p>Especialistas comprometidos con tu sonrisa</p>
+        <h2>Dentists</h2>
+        <p>Specialists committed to your smile</p>
       </div><!-- End Section Title -->
 
       <div class="container">
@@ -319,11 +319,11 @@
           <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
             <div class="team-member">
               <div class="member-img">
-                <img src="assets/img/doctors/doctors-1.jpg" class="img-fluid" alt="Odontólogo">
+                <img src="assets/img/doctors/doctors-1.jpg" class="img-fluid" alt="Dentist">
               </div>
               <div class="member-info">
-                <h4>Dr. Carlos Ruiz</h4>
-                <span>Ortodoncia</span>
+                <h4>Dr. Charles Ruiz</h4>
+                <span>Orthodontics</span>
               </div>
             </div>
           </div><!-- End Team Member -->
@@ -331,11 +331,11 @@
           <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
             <div class="team-member">
               <div class="member-img">
-                <img src="assets/img/doctors/doctors-2.jpg" class="img-fluid" alt="Odontóloga">
+                <img src="assets/img/doctors/doctors-2.jpg" class="img-fluid" alt="Dentist">
               </div>
               <div class="member-info">
-                <h4>Dra. Laura Gómez</h4>
-                <span>Endodoncia</span>
+                <h4>Dr. Laura Gomez</h4>
+                <span>Endodontics</span>
               </div>
             </div>
           </div><!-- End Team Member -->
@@ -343,11 +343,11 @@
           <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
             <div class="team-member">
               <div class="member-img">
-                <img src="assets/img/doctors/doctors-3.jpg" class="img-fluid" alt="Odontólogo">
+                <img src="assets/img/doctors/doctors-3.jpg" class="img-fluid" alt="Dentist">
               </div>
               <div class="member-info">
-                <h4>Dr. Andrés Torres</h4>
-                <span>Implantología</span>
+                <h4>Dr. Andrew Torres</h4>
+                <span>Implantology</span>
               </div>
             </div>
           </div><!-- End Team Member -->
@@ -355,11 +355,11 @@
           <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400">
             <div class="team-member">
               <div class="member-img">
-                <img src="assets/img/doctors/doctors-4.jpg" class="img-fluid" alt="Odontóloga">
+                <img src="assets/img/doctors/doctors-4.jpg" class="img-fluid" alt="Dentist">
               </div>
               <div class="member-info">
-                <h4>Dra. Ana Martínez</h4>
-                <span>Odontopediatría</span>
+                <h4>Dr. Ana Martinez</h4>
+                <span>Pediatric Dentistry</span>
               </div>
             </div>
           </div><!-- End Team Member -->
@@ -375,8 +375,8 @@
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Contacto</h2>
-        <p>Visítanos o escríbenos para agendar tu valoración</p>
+        <h2>Contact</h2>
+        <p>Visit us or write to us to schedule your evaluation</p>
       </div><!-- End Section Title -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -388,15 +388,15 @@
               <div class="col-lg-12">
                 <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="200">
                   <i class="bi bi-geo-alt"></i>
-                  <h3>Dirección</h3>
-                  <p>Calle 123 #45-67, Bogotá, Colombia</p>
+                  <h3>Address</h3>
+                  <p>Street 123 #45-67, Bogota, Colombia</p>
                 </div>
               </div><!-- End Info Item -->
 
               <div class="col-md-6">
                 <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="300">
                   <i class="bi bi-telephone"></i>
-                  <h3>Llámanos</h3>
+                  <h3>Call Us</h3>
                   <p>+57 300 123 4567</p>
                 </div>
               </div><!-- End Info Item -->
@@ -404,8 +404,8 @@
               <div class="col-md-6">
                 <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="400">
                   <i class="bi bi-envelope"></i>
-                  <h3>Escríbenos</h3>
-                  <p>contacto@dentalcare.com</p>
+                  <h3>Email Us</h3>
+                  <p>contact@dentalcare.com</p>
                 </div>
               </div><!-- End Info Item -->
 
@@ -417,23 +417,23 @@
               <div class="row gy-4">
 
                 <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Tu nombre" required="">
+                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
                 </div>
 
                 <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Tu correo" required="">
+                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
                 </div>
 
                 <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Asunto" required="">
+                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
                 </div>
 
                 <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="4" placeholder="Mensaje" required=""></textarea>
+                  <textarea class="form-control" name="message" rows="4" placeholder="Message" required=""></textarea>
                 </div>
 
                 <div class="col-md-12 text-center">
-                  <button type="submit">Enviar Mensaje</button>
+                  <button type="submit">Send Message</button>
                 </div>
 
               </div>

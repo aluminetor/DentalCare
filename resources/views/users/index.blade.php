@@ -2,17 +2,17 @@
 
 @section('content')
 @php
-    $permisos = Auth::user()->rol?->permisos->pluck('codigo')->all() ?? [];
+    $permissions = Auth::user()->role?->permissions->pluck('code')->all() ?? [];
 @endphp
 
 <div class="container py-4">
     <div class="card shadow-sm">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Listado de Usuarios</h5>
+            <h5 class="mb-0">Users List</h5>
 
-            @if(in_array('usuarios.crear', $permisos))
-                <a href="{{ route('usuarios.create') }}" class="btn btn-primary btn-sm">
-                    Nuevo Usuario
+            @if(in_array('users.create', $permissions))
+                <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm">
+                    New User
                 </a>
             @endif
         </div>
@@ -41,7 +41,7 @@
                 </div>
             @endif
 
-            <form class="navbar-search" method="GET" action="{{ route('usuarios.index') }}">
+            <form class="navbar-search" method="GET" action="{{ route('users.index') }}">
                 <div class="row mt-2 mb-3 g-2 align-items-center">
                     <div class="col-md-auto">
                         <select class="form-select bg-light border-0 small" name="records_per_page">
@@ -55,7 +55,7 @@
 
                     <div class="col">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar por nombre, apellido, correo o rol..." aria-label="Search" name="filter" value="{{ $data->filter }}">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search by first name, last name, email, or role..." aria-label="Search" name="filter" value="{{ $data->filter }}">
                             <button class="btn btn-primary" type="submit">
                                 <i class="bi bi-search"></i>
                             </button>
@@ -68,40 +68,40 @@
                 <table class="table table-hover align-middle">
                     <thead>
                         <tr>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
                             <th>Email</th>
-                            <th>Rol</th>
-                            <th>Acciones</th>
+                            <th>Role</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        @forelse($usuarios as $usuario)
+                        @forelse($users as $user)
                             <tr>
-                                <td>{{ $usuario->name }}</td>
-                                <td>{{ $usuario->apellido ?? '—' }}</td>
-                                <td>{{ $usuario->email }}</td>
-                                <td>{{ $usuario->rol?->nombre ?? 'Sin rol' }}</td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->last_name ?? '—' }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->role?->name ?? 'No role' }}</td>
 
                                 <td class="text-nowrap">
-                                    @if(in_array('usuarios.editar', $permisos))
-                                        <a href="{{ route('usuarios.edit', $usuario) }}"
+                                    @if(in_array('users.edit', $permissions))
+                                        <a href="{{ route('users.edit', $user) }}"
                                         class="btn btn-warning btn-sm">
-                                            Editar
+                                            Edit
                                         </a>
                                     @endif
 
-                                    @if(in_array('usuarios.eliminar', $permisos))
-                                        <form action="{{ route('usuarios.delete', $usuario) }}"
+                                    @if(in_array('users.delete', $permissions))
+                                        <form action="{{ route('users.delete', $user) }}"
                                             method="POST"
                                             class="d-inline"
-                                            onsubmit="return confirm('¿Estás seguro de eliminar este usuario?');">
+                                            onsubmit="return confirm('Are you sure you want to delete this user?');">
                                             @csrf
                                             @method('DELETE')
 
                                             <button type="submit" class="btn btn-danger btn-sm">
-                                                Eliminar
+                                                Delete
                                             </button>
                                         </form>
                                     @endif
@@ -110,7 +110,7 @@
                         @empty
                             <tr>
                                 <td colspan="5" class="text-center">
-                                    No hay usuarios registrados.
+                                    No users registered.
                                 </td>
                             </tr>
                         @endforelse
@@ -119,11 +119,11 @@
             </div>
 
             <div class="mt-3">
-                {{ $usuarios->appends(request()->except('page'))->links('components.custom-pagination') }}
+                {{ $users->appends(request()->except('page'))->links('components.custom-pagination') }}
             </div>
 
             <a href="{{ route('home.index') }}" class="btn btn-secondary mt-2">
-                Volver
+                Back
             </a>
         </div>
     </div>

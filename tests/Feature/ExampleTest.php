@@ -9,13 +9,13 @@ class ExampleTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_invitado_es_redirigido_al_login(): void
+    public function test_guest_is_redirected_to_login(): void
     {
         $this->get('/')->assertRedirect('/login');
     }
 
-    public function test_invitado_no_puede_ver_usuarios(): void
+    public function test_guest_cannot_view_users(): void
     {
-        $this->get('/usuarios')->assertRedirect('/login');
+        $this->get('/users')->assertRedirect('/login');
     }
 }

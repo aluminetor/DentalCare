@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar sesión | DentalCare</title>
+    <title>Log In | DentalCare</title>
     <style>
         * {
             box-sizing: border-box;
@@ -116,12 +116,12 @@
     <main class="login-card">
         <header class="brand">
             <h1>DentalCare</h1>
-            <p>Gestión de atención odontológica</p>
+            <p>Dental Care Management System</p>
         </header>
 
         @if ($errors->any())
             <div class="general-error" role="alert">
-                Revisa los datos ingresados e inténtalo nuevamente.
+                Please check the entered information and try again.
             </div>
         @endif
 
@@ -129,7 +129,7 @@
             @csrf
 
             <div class="field">
-                <label for="email">Correo electrónico</label>
+                <label for="email">Email Address</label>
                 <input
                     id="email"
                     type="email"
@@ -146,7 +146,7 @@
             </div>
 
             <div class="field">
-                <label for="password">Contraseña</label>
+                <label for="password">Password</label>
                 <input
                     id="password"
                     type="password"
@@ -162,10 +162,10 @@
 
             <div class="remember">
                 <input id="remember" type="checkbox" name="remember" value="1">
-                <label for="remember">Recordar mi sesión</label>
+                <label for="remember">Remember me</label>
             </div>
 
-            <button type="submit">Iniciar sesión</button>
+            <button type="submit">Log In</button>
         </form>
     </main>
 </body>

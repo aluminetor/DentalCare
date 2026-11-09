@@ -4,14 +4,14 @@
     <div class="container py-4">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Pacientes</h5>
-                <a href="{{ route('pacientes.create') }}" class="btn btn-primary btn-sm">
-                    <i class="bi bi-plus-circle-fill"></i> Nuevo paciente
+                <h5 class="mb-0">Patients</h5>
+                <a href="{{ route('patients.create') }}" class="btn btn-primary btn-sm">
+                    <i class="bi bi-plus-circle-fill"></i> New Patient
                 </a>
             </div>
 
             <div class="card-body">
-                <form class="navbar-search" method="GET" action="{{ route('pacientes.index') }}">
+                <form class="navbar-search" method="GET" action="{{ route('patients.index') }}">
                     <div class="row mt-2 mb-3 g-2 align-items-center">
                         <div class="col-md-auto">
                             <select class="form-select bg-light border-0 small" name="records_per_page">
@@ -25,7 +25,7 @@
 
                         <div class="col">
                             <div class="input-group">
-                                <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar por nombre, apellido, documento o teléfono..." aria-label="Search" name="filter" value="{{ $data->filter }}">
+                                <input type="text" class="form-control bg-light border-0 small" placeholder="Search by first name, last name, document, or phone..." aria-label="Search" name="filter" value="{{ $data->filter }}">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="bi bi-search"></i>
                                 </button>
@@ -39,28 +39,28 @@
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Nombre</th>
-                                <th>Documento</th>
-                                <th>Teléfono</th>
-                                <th>Nacimiento</th>
-                                <th>Acciones</th>
+                                <th>Name</th>
+                                <th>Document</th>
+                                <th>Phone</th>
+                                <th>Birth Date</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            @forelse ($pacientes as $paciente)
+                            @forelse ($patients as $patient)
                                 <tr>
-                                    <td>{{ $paciente->id }}</td>
-                                    <td>{{ $paciente->nombre }} {{ $paciente->apellido }}</td>
-                                    <td>{{ $paciente->documento }}</td>
-                                    <td>{{ $paciente->telefono }}</td>
-                                    <td>{{ $paciente->fecha_nacimiento->format('d/m/Y') }}</td>
+                                    <td>{{ $patient->id }}</td>
+                                    <td>{{ $patient->first_name }} {{ $patient->last_name }}</td>
+                                    <td>{{ $patient->document }}</td>
+                                    <td>{{ $patient->phone }}</td>
+                                    <td>{{ $patient->birth_date->format('d/m/Y') }}</td>
                                     <td>
-                                        <a href="{{ route('pacientes.edit', $paciente->id) }}" class="btn btn-warning btn-sm">
+                                        <a href="{{ route('patients.edit', $patient->id) }}" class="btn btn-warning btn-sm">
                                             <i class="bi bi-pencil-fill"></i>
                                         </a>
 
-                                        <form action="{{ route('pacientes.delete', $paciente->id) }}" method="POST" style="display: contents;">
+                                        <form action="{{ route('patients.delete', $patient->id) }}" method="POST" style="display: contents;">
                                             @csrf
                                             @method('DELETE')
 
@@ -72,16 +72,16 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="6" class="text-center text-muted">Aún no hay pacientes registrados.</td>
+                                    <td colspan="6" class="text-center text-muted">No patients registered yet.</td>
                                 </tr>
                             @endforelse
                         </tbody>
                     </table>
                 </div>
 
-                {{ $pacientes->appends(request()->except('page'))->links('components.custom-pagination') }}
+                {{ $patients->appends(request()->except('page'))->links('components.custom-pagination') }}
 
-                <a href="{{ route('home.index') }}" class="btn btn-secondary mt-3">Volver</a>
+                <a href="{{ route('home.index') }}" class="btn btn-secondary mt-3">Back</a>
             </div>
         </div>
     </div>
@@ -91,18 +91,18 @@
     <script>
         $(document).ready(function() {
 
-            // Pide confirmación antes de eliminar
+            // Ask for confirmation before deleting
             $('.btn-delete').click(function(event) {
 
                 event.preventDefault();
 
                 Swal.fire({
-                    title: "¿Desea eliminar el paciente?",
-                    text: "No podrá revertirlo",
+                    title: "Are you sure you want to delete this patient?",
+                    text: "This action cannot be undone",
                     icon: "question",
                     showCancelButton: true,
-                    confirmButtonText: "Sí, eliminar",
-                    cancelButtonText: "Cancelar",
+                    confirmButtonText: "Yes, delete",
+                    cancelButtonText: "Cancel",
                 }).then((result) => {
 
                     if (result.isConfirmed) {

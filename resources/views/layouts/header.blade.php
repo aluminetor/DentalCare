@@ -4,12 +4,12 @@
         <div class="container d-flex justify-content-center justify-content-md-between">
             <div class="d-none d-md-flex align-items-center">
                 <i class="bi bi-clock me-1"></i>
-                Lunes - Sábado, 8:00 AM a 8:00 PM
+                Monday - Saturday, 8:00 AM to 8:00 PM
             </div>
 
             <div class="d-flex align-items-center">
                 <i class="bi bi-phone me-1"></i>
-                Llámanos +57 300 123 4567
+                Call us +57 300 123 4567
             </div>
         </div>
     </div>
@@ -24,13 +24,13 @@
 
             @auth
                 @php
-                    $usuario = Auth::user();
-                    $codigosPermisos = $usuario->rol
-                        ? $usuario->rol->permisos->pluck('codigo')->all()
+                    $user = Auth::user();
+                    $permissionCodes = $user->role
+                        ? $user->role->permissions->pluck('code')->all()
                         : [];
 
-                    $tienePermiso = fn ($codigo) =>
-                        in_array($codigo, $codigosPermisos, true);
+                    $hasPermission = fn ($code) =>
+                        in_array($code, $permissionCodes, true);
                 @endphp
 
                 <nav id="navmenu" class="navmenu">
@@ -38,38 +38,38 @@
                         <li>
                             <a href="{{ route('home.index') }}"
                                class="{{ request()->routeIs('home.*') ? 'active' : '' }}">
-                                Inicio
+                                Home
                             </a>
                         </li>
 
-                        @if ($tienePermiso('pacientes.ver'))
+                        @if ($hasPermission('patients.view'))
                             <li>
-                                <a href="{{ route('pacientes.index') }}"
-                                   class="{{ request()->routeIs('pacientes.*') ? 'active' : '' }}">
-                                    Pacientes
+                                <a href="{{ route('patients.index') }}"
+                                   class="{{ request()->routeIs('patients.*') ? 'active' : '' }}">
+                                    Patients
                                 </a>
                             </li>
                         @endif
 
-                        @if ($tienePermiso('citas.ver'))
+                        @if ($hasPermission('appointments.view'))
                             <li>
-                                <a href="{{ route('citas.index') }}"
-                                   class="{{ request()->routeIs('citas.*') ? 'active' : '' }}">
-                                    Citas
+                                <a href="{{ route('appointments.index') }}"
+                                   class="{{ request()->routeIs('appointments.*') ? 'active' : '' }}">
+                                    Appointments
                                 </a>
                             </li>
                         @endif
 
-                        @if ($tienePermiso('usuarios.ver') && Route::has('usuarios.index'))
+                        @if ($hasPermission('users.view') && Route::has('users.index'))
                             <li>
-                                <a href="{{ route('usuarios.index') }}"
-                                   class="{{ request()->routeIs('usuarios.*') ? 'active' : '' }}">
-                                    Usuarios
+                                <a href="{{ route('users.index') }}"
+                                   class="{{ request()->routeIs('users.*') ? 'active' : '' }}">
+                                    Users
                                 </a>
                             </li>
                         @endif
 
-                        @if ($tienePermiso('roles.ver') && Route::has('roles.index'))
+                        @if ($hasPermission('roles.view') && Route::has('roles.index'))
                             <li>
                                 <a href="{{ route('roles.index') }}"
                                    class="{{ request()->routeIs('roles.*') ? 'active' : '' }}">
@@ -82,22 +82,22 @@
                     <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
                 </nav>
 
-                @if ($tienePermiso('citas.crear'))
-                    <a class="cta-btn me-2" href="{{ route('citas.create') }}">
-                        Agendar Cita
+                @if ($hasPermission('appointments.create'))
+                    <a class="cta-btn me-2" href="{{ route('appointments.create') }}">
+                        Book Appointment
                     </a>
                 @endif
 
                 <div class="d-flex align-items-center gap-2">
                     <span class="d-none d-lg-inline">
-                        Hola, {{ $usuario->name }}
+                        Hello, {{ $user->name }}
                     </span>
 
                     <form action="{{ route('logout') }}" method="POST" class="m-0">
                         @csrf
                         <button type="submit" class="btn btn-outline-danger">
                             <i class="bi bi-box-arrow-right me-1"></i>
-                            Cerrar sesión
+                            Log Out
                         </button>
                     </form>
                 </div>

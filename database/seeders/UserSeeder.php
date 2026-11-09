@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Rol;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -11,20 +11,20 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        // Usuarios de prueba por cada rol (contraseña: password)
-        $usuarios = [
-            ['Ana', 'Admin', 'admin@dentalcare.test', 'Administrador', null],
-            ['Rosa', 'Recepción', 'recepcion@dentalcare.test', 'Recepcionista', null],
-            ['Carlos', 'Mejía', 'odontologo@dentalcare.test', 'Odontólogo', 'Odontología general'],
+        // Sample users for each role (password: password)
+        $users = [
+            ['Ana', 'Admin', 'admin@dentalcare.test', 'Administrator', null],
+            ['Rose', 'Reception', 'reception@dentalcare.test', 'Receptionist', null],
+            ['Charles', 'Miller', 'dentist@dentalcare.test', 'Dentist', 'General Dentistry'],
         ];
 
-        foreach ($usuarios as [$name, $apellido, $email, $rol, $especialidad]) {
+        foreach ($users as [$name, $lastName, $email, $role, $specialty]) {
             User::updateOrCreate(['email' => $email], [
                 'name' => $name,
-                'apellido' => $apellido,
+                'last_name' => $lastName,
                 'password' => Hash::make('password'),
-                'especialidad' => $especialidad,
-                'rol_id' => Rol::where('nombre', $rol)->value('id'),
+                'specialty' => $specialty,
+                'role_id' => Role::where('name', $role)->value('id'),
             ]);
         }
     }

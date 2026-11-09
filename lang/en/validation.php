@@ -1,0 +1,43 @@
+<?php
+
+return [
+    'required' => 'The :attribute field is required.',
+    'string' => 'The :attribute field must be a string.',
+    'email' => 'The :attribute field must be a valid email address.',
+    'integer' => 'The :attribute field must be an integer.',
+    'date' => 'The :attribute field is not a valid date.',
+    'unique' => 'The :attribute has already been taken.',
+    'exists' => 'The selected :attribute is invalid.',
+    'confirmed' => 'The :attribute confirmation does not match.',
+    'after_or_equal' => 'The :attribute field must be a date after or equal to :date.',
+    'before_or_equal' => 'The :attribute field must be a date before or equal to :date.',
+    'date_format' => 'The :attribute field must match the format :format.',
+    'in' => 'The selected :attribute is invalid.',
+    'max' => [
+        'string' => 'The :attribute field must not be greater than :max characters.',
+        'numeric' => 'The :attribute field must not be greater than :max.',
+    ],
+    'min' => [
+        'string' => 'The :attribute field must be at least :min characters.',
+        'numeric' => 'The :attribute field must be at least :min.',
+    ],
+    'attributes' => [
+        'name' => 'first name',
+        'first_name' => 'first name',
+        'last_name' => 'last name',
+        'email' => 'email address',
+        'password' => 'password',
+        'phone' => 'phone number',
+        'specialty' => 'specialty',
+        'role_id' => 'role',
+        'document' => 'document',
+        'birth_date' => 'birth date',
+        'patient_id' => 'patient',
+        'dentist_id' => 'dentist',
+        'date' => 'date',
+        'time' => 'time',
+        'reason' => 'reason',
+        'status' => 'status',
+        'notes' => 'notes',
+    ],
+];
