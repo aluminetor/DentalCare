@@ -31,7 +31,7 @@
                         
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Apellido</label>
-                            <input type="text" name="apellido" class="form-control" value="{{ old('apellido', $usuario->apellido) }}">
+                            <input type="text" name="apellido" class="form-control" value="{{ old('apellido', $usuario->apellido) }}" required>
                         </div>
 
                         <div class="col-md-6 mb-3">

@@ -15,14 +15,14 @@ Route::post('/usuarios/store', [UsuariosController::class, 'store'])
     ->middleware('permission:usuarios.crear')
     ->name('usuarios.store');
 
-Route::get('/usuarios/{usuario}/edit', [UsuariosController::class, 'edit'])
+Route::get('/usuarios/{id}/edit', [UsuariosController::class, 'edit'])
     ->middleware('permission:usuarios.editar')
     ->name('usuarios.edit');
 
-Route::put('/usuarios/{usuario}', [UsuariosController::class, 'update'])
+Route::put('/usuarios/{id}', [UsuariosController::class, 'update'])
     ->middleware('permission:usuarios.editar')
     ->name('usuarios.update');
 
-Route::delete('/usuarios/{usuario}', [UsuariosController::class, 'destroy'])
+Route::delete('/usuarios/{id}', [UsuariosController::class, 'destroy'])
     ->middleware('permission:usuarios.eliminar')
     ->name('usuarios.delete');

@@ -33,7 +33,7 @@
                         <label for="apellido" class="form-label">Apellido</label>
                         <input type="text" name="apellido" id="apellido"
                             class="form-control"
-                            value="{{ old('apellido') }}">
+                            value="{{ old('apellido') }}" required>
                     </div>
 
                     <div class="col-md-6 mb-3">

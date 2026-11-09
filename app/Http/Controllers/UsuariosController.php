@@ -10,6 +10,39 @@ use Illuminate\Validation\Rule;
 
 class UsuariosController extends Controller
 {
+    // Reglas comunes de crear y editar. Los máximos coinciden con el largo de cada columna de la tabla users.
+    private function reglasBase(): array
+    {
+        return [
+            'name' => ['required', 'string', 'max:60'],
+            'apellido' => ['required', 'string', 'max:60'],
+            'telefono' => ['nullable', 'string', 'max:20'],
+            'especialidad' => ['nullable', 'string', 'max:80'],
+            'rol_id' => ['required', 'integer', 'exists:roles,id'],
+        ];
+    }
+
+    private function mensajes(): array
+    {
+        return [
+            'name.required' => 'El nombre es requerido.',
+            'name.max' => 'El nombre no puede tener más de :max caracteres.',
+            'apellido.required' => 'El apellido es requerido.',
+            'apellido.max' => 'El apellido no puede tener más de :max caracteres.',
+            'email.required' => 'El correo es requerido.',
+            'email.email' => 'El correo no tiene un formato válido.',
+            'email.max' => 'El correo no puede tener más de :max caracteres.',
+            'email.unique' => 'Ya existe un usuario con ese correo.',
+            'telefono.max' => 'El teléfono no puede tener más de :max caracteres.',
+            'especialidad.max' => 'La especialidad no puede tener más de :max caracteres.',
+            'rol_id.required' => 'Debes seleccionar un rol.',
+            'rol_id.exists' => 'El rol seleccionado no existe.',
+            'password.required' => 'La contraseña es requerida.',
+            'password.min' => 'La contraseña debe tener al menos :min caracteres.',
+            'password.confirmed' => 'La confirmación de la contraseña no coincide.',
+        ];
+    }
+
     public function index(Request $request)
     {
         if (!empty($request->records_per_page)) {
@@ -50,19 +83,14 @@ class UsuariosController extends Controller
 
     public function store(Request $request)
     {
-        $datos = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'apellido' => ['nullable', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
-            'telefono' => ['nullable', 'string', 'max:30'],
-            'especialidad' => ['nullable', 'string', 'max:255'],
-            'rol_id' => ['required', 'integer', 'exists:roles,id'],
+        $datos = $request->validate($this->reglasBase() + [
+            'email' => ['required', 'email', 'max:100', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        ], $this->mensajes());
 
         User::create([
             'name' => $datos['name'],
-            'apellido' => $datos['apellido'] ?? null,
+            'apellido' => $datos['apellido'],
             'email' => $datos['email'],
             'telefono' => $datos['telefono'] ?? null,
             'especialidad' => $datos['especialidad'] ?? null,
@@ -75,32 +103,32 @@ class UsuariosController extends Controller
             ->with('success', 'Usuario creado correctamente.');
     }
 
-    public function edit(User $usuario)
+    // Se busca por id dentro del método (no con route-model binding) para que el permiso
+    // se valide ANTES: así, sin permiso siempre es 403, exista o no el usuario.
+    public function edit($id)
     {
+        $usuario = User::findOrFail($id);
         $roles = Rol::orderBy('nombre', 'asc')->get();
 
         return view('usuarios.edit', compact('usuario', 'roles'));
     }
 
-    public function update(Request $request, User $usuario)
+    public function update(Request $request, $id)
     {
-        $datos = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'apellido' => ['nullable', 'string', 'max:255'],
+        $usuario = User::findOrFail($id);
+
+        $datos = $request->validate($this->reglasBase() + [
             'email' => [
                 'required',
                 'email',
-                'max:255',
+                'max:100',
                 Rule::unique('users', 'email')->ignore($usuario->id),
             ],
-            'telefono' => ['nullable', 'string', 'max:30'],
-            'especialidad' => ['nullable', 'string', 'max:255'],
-            'rol_id' => ['required', 'integer', 'exists:roles,id'],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
-        ]);
+        ], $this->mensajes());
 
         $usuario->name = $datos['name'];
-        $usuario->apellido = $datos['apellido'] ?? null;
+        $usuario->apellido = $datos['apellido'];
         $usuario->email = $datos['email'];
         $usuario->telefono = $datos['telefono'] ?? null;
         $usuario->especialidad = $datos['especialidad'] ?? null;
@@ -117,8 +145,10 @@ class UsuariosController extends Controller
             ->with('success', 'Usuario actualizado correctamente.');
     }
 
-    public function destroy(User $usuario)
+    public function destroy($id)
     {
+        $usuario = User::findOrFail($id);
+
         if ($usuario->id === auth()->id()) {
             return back()->with(
                 'error',
