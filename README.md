@@ -3,7 +3,6 @@
 Aplicación web para gestionar **pacientes y citas** de una clínica odontológica, con usuarios, roles y permisos dinámicos.
 Proyecto grupal de la materia de PHP (Laravel + MySQL + Bootstrap).
 
-> Cambio de prueba del README.
 
 > Los documentos de diseño están en [`docs/`](docs): la **matriz de permisos** (`.xlsx`, con la base de datos y las reglas de negocio) y el **diagrama ERD** (`.drawio`, se abre en https://app.diagrams.net). **Si algo del código contradice esos documentos, mandan los documentos.**
 
@@ -43,10 +42,10 @@ Para volver a empezar de cero la base de datos: `php artisan migrate:fresh --see
 | Módulo | Estado | Responsable |
 | --- | --- | --- |
 | Pacientes | ✅ CRUD completo (módulo de referencia) | — |
-| Citas | 🟡 solo maqueta de vistas | |
-| Usuarios | 🟡 solo maqueta de vistas | |
+| Citas | ✅ CRUD completo | |
+| Usuarios | ✅ CRUD completo con permisos | |
 | Roles y permisos | 🟡 solo maqueta de vistas | |
-| Login / permisos por rol | ⏳ se hace cuando el profe lo explique | |
+| Login / cierre de sesión / permisos por rol | ✅ listo (middleware `permission:`) | |
 
 La base de datos (migraciones y modelos) **ya está completa** para todos los módulos: nadie tiene que crear tablas, solo el controlador, las rutas y las vistas.
 
