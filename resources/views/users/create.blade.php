@@ -4,7 +4,7 @@
 <div class="container py-4">
     <div class="card shadow-sm">
         <div class="card-header">
-            <h5 class="mb-0">Crear Usuario</h5>
+            <h5 class="mb-0">Create User</h5>
         </div>
 
         <div class="card-body">
@@ -18,68 +18,68 @@
                 </div>
             @endif
 
-            <form action="{{ route('usuarios.store') }}" method="POST">
+            <form action="{{ route('users.store') }}" method="POST">
                 @csrf
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="name" class="form-label">Nombre *</label>
+                        <label for="name" class="form-label">First Name *</label>
                         <input type="text" name="name" id="name"
                             class="form-control"
                             value="{{ old('name') }}" required>
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="apellido" class="form-label">Apellido</label>
-                        <input type="text" name="apellido" id="apellido"
+                        <label for="last_name" class="form-label">Last Name *</label>
+                        <input type="text" name="last_name" id="last_name"
                             class="form-control"
-                            value="{{ old('apellido') }}">
+                            value="{{ old('last_name') }}" required>
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="email" class="form-label">Correo electrónico *</label>
+                        <label for="email" class="form-label">Email Address *</label>
                         <input type="email" name="email" id="email"
                             class="form-control"
                             value="{{ old('email') }}" required>
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="telefono" class="form-label">Teléfono</label>
-                        <input type="text" name="telefono" id="telefono"
+                        <label for="phone" class="form-label">Phone</label>
+                        <input type="text" name="phone" id="phone"
                             class="form-control"
-                            value="{{ old('telefono') }}">
+                            value="{{ old('phone') }}">
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="especialidad" class="form-label">Especialidad</label>
-                        <input type="text" name="especialidad" id="especialidad"
+                        <label for="specialty" class="form-label">Specialty</label>
+                        <input type="text" name="specialty" id="specialty"
                             class="form-control"
-                            value="{{ old('especialidad') }}">
+                            value="{{ old('specialty') }}">
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="rol_id" class="form-label">Rol *</label>
-                        <select name="rol_id" id="rol_id" class="form-select" required>
-                            <option value="">Selecciona un rol</option>
-                            @foreach($roles as $rol)
-                                <option value="{{ $rol->id }}"
-                                    {{ old('rol_id') == $rol->id ? 'selected' : '' }}>
-                                    {{ $rol->nombre }}
+                        <label for="role_id" class="form-label">Role *</label>
+                        <select name="role_id" id="role_id" class="form-select" required>
+                            <option value="">Select a role</option>
+                            @foreach($roles as $role)
+                                <option value="{{ $role->id }}"
+                                    {{ old('role_id') == $role->id ? 'selected' : '' }}>
+                                    {{ $role->name }}
                                 </option>
                             @endforeach
                         </select>
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="password" class="form-label">Contraseña *</label>
+                        <label for="password" class="form-label">Password *</label>
                         <input type="password" name="password" id="password"
                             class="form-control" minlength="8" required>
-                        <small class="text-muted">Mínimo 8 caracteres.</small>
+                        <small class="text-muted">Minimum 8 characters.</small>
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label for="password_confirmation" class="form-label">
-                            Confirmar contraseña *
+                            Confirm Password *
                         </label>
                         <input type="password" name="password_confirmation"
                             id="password_confirmation"
@@ -87,9 +87,9 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Guardar usuario</button>
-                <a href="{{ route('usuarios.index') }}"
-                class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Save User</button>
+                <a href="{{ route('users.index') }}"
+                class="btn btn-secondary">Cancel</a>
             </form>
         </div>
     </div>

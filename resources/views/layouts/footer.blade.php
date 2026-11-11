@@ -6,11 +6,11 @@
           <a href="{{ route('home.index') }}" class="logo d-flex align-items-center">
             <span class="sitename">DentalCare</span>
           </a>
-          <p class="pt-3">Atención odontológica integral y de confianza para toda la familia.</p>
+          <p class="pt-3">Comprehensive and trusted dental care for the whole family.</p>
           <div class="footer-contact pt-2">
-            <p>Calle Principal #10-20, Consultorio 301, Bogotá, Colombia</p>
-            <p class="mt-3"><strong>Teléfono:</strong> <span>+57 300 123 4567</span></p>
-            <p><strong>Correo:</strong> <span>citas@dentalcare.com</span></p>
+            <p>Main Street #10-20, Suite 301, Bogota, Colombia</p>
+            <p class="mt-3"><strong>Phone:</strong> <span>+57 300 123 4567</span></p>
+            <p><strong>Email:</strong> <span>appointments@dentalcare.com</span></p>
           </div>
           <div class="social-links d-flex mt-4">
             <a href=""><i class="bi bi-facebook"></i></a>
@@ -20,24 +20,24 @@
         </div>
 
         <div class="col-lg-3 col-md-6 footer-links">
-          <h4>Enlaces útiles</h4>
+          <h4>Useful Links</h4>
           <ul>
-            <li><a href="{{ route('home.index') }}">Inicio</a></li>
-            <li><a href="{{ Route::has('citas.index') ? route('citas.index') : '#' }}">Citas</a></li>
-            <li><a href="{{ Route::has('pacientes.index') ? route('pacientes.index') : '#' }}">Pacientes</a></li>
-            <li><a href="{{ url('/#odontologos') }}">Odontólogos</a></li>
-            <li><a href="#">Iniciar sesión</a></li>
+            <li><a href="{{ route('home.index') }}">Home</a></li>
+            <li><a href="{{ Route::has('appointments.index') ? route('appointments.index') : '#' }}">Appointments</a></li>
+            <li><a href="{{ Route::has('patients.index') ? route('patients.index') : '#' }}">Patients</a></li>
+            <li><a href="{{ url('/#dentists') }}">Dentists</a></li>
+            <li><a href="{{ route('login') }}">Log In</a></li>
           </ul>
         </div>
 
         <div class="col-lg-4 col-md-6 footer-links">
-          <h4>Servicios odontológicos</h4>
+          <h4>Dental Services</h4>
           <ul>
-            <li><a href="{{ url('/#tratamientos') }}">Odontología general</a></li>
-            <li><a href="{{ url('/#tratamientos') }}">Ortodoncia</a></li>
-            <li><a href="{{ url('/#tratamientos') }}">Endodoncia</a></li>
-            <li><a href="{{ url('/#tratamientos') }}">Limpieza y prevención</a></li>
-            <li><a href="{{ url('/#tratamientos') }}">Diseño de sonrisa</a></li>
+            <li><a href="{{ url('/#treatments') }}">General Dentistry</a></li>
+            <li><a href="{{ url('/#treatments') }}">Orthodontics</a></li>
+            <li><a href="{{ url('/#treatments') }}">Endodontics</a></li>
+            <li><a href="{{ url('/#treatments') }}">Cleaning and Prevention</a></li>
+            <li><a href="{{ url('/#treatments') }}">Smile Design</a></li>
           </ul>
         </div>
 
@@ -48,11 +48,11 @@
   <p>
     © 2026
     <strong class="px-1 sitename">DentalCare</strong>
-    <span>Todos los derechos reservados.</span>
+    <span>All Rights Reserved.</span>
   </p>
 
   <p class="mb-0">
-    Sistema de gestión para clínica odontológica.
+    Dental clinic management system.
   </p>
 </div>
 

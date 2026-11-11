@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/', [HomeController::class, 'index'])
         ->name('home.index');
 
-    require __DIR__.'/web/pacientes.php';
-    require __DIR__.'/web/citas.php';
-    require __DIR__.'/web/usuarios.php';
+    require __DIR__.'/web/patients.php';
+    require __DIR__.'/web/appointments.php';
+    require __DIR__.'/web/users.php';
 });

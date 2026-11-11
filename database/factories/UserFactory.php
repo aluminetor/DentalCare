@@ -26,8 +26,8 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->firstName(),
-            'apellido' => fake()->lastName(),
-            'rol_id' => 1,   // el rol debe existir (corre el seeder primero)
+            'last_name' => fake()->lastName(),
+            'role_id' => 1,   // role must exist (run the seeder first)
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),

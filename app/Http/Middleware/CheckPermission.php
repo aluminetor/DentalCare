@@ -11,26 +11,26 @@ class CheckPermission
     public function handle(
         Request $request,
         Closure $next,
-        string $permiso
+        string $permission
     ): Response {
-        $usuario = $request->user();
+        $user = $request->user();
 
-        if (!$usuario) {
+        if (!$user) {
             return redirect()->route('login');
         }
 
-        $rol = $usuario->rol;
+        $role = $user->role;
 
-        if (!$rol) {
-            abort(403, 'Tu usuario no tiene un rol asignado.');
+        if (!$role) {
+            abort(403, 'Your user does not have an assigned role.');
         }
 
-        $tienePermiso = $rol->permisos()
-            ->where('codigo', $permiso)
+        $hasPermission = $role->permissions()
+            ->where('code', $permission)
             ->exists();
 
-        if (!$tienePermiso) {
-            abort(403, 'No tienes permiso para realizar esta acción.');
+        if (!$hasPermission) {
+            abort(403, 'You do not have permission to perform this action.');
         }
 
         return $next($request);

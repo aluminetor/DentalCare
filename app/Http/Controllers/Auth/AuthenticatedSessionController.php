@@ -16,18 +16,18 @@ class AuthenticatedSessionController extends Controller
 
     public function store(Request $request)
     {
-        $credenciales = $request->validate([
+        $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required', 'string'],
         ], [
-            'email.required' => 'Debes ingresar tu correo electrónico.',
-            'email.email' => 'Ingresa un correo electrónico válido.',
-            'password.required' => 'Debes ingresar tu contraseña.',
+            'email.required' => 'You must enter your email address.',
+            'email.email' => 'Please enter a valid email address.',
+            'password.required' => 'You must enter your password.',
         ]);
 
-        if (! Auth::attempt($credenciales, $request->boolean('remember'))) {
+        if (! Auth::attempt($credentials, $request->boolean('remember'))) {
             throw ValidationException::withMessages([
-                'email' => 'Las credenciales ingresadas no son correctas.',
+                'email' => 'The provided credentials do not match our records.',
             ]);
         }
 
