@@ -1,24 +1,24 @@
-# DentalCare – Dental Clinic Management System
+# DentalCare · Sistema de gestión odontológica
 
-DentalCare is a Laravel web application for managing patients and dental appointments. It gives receptionists and dentists a shared workflow: reception registers patients and schedules appointments, while dentists view their assigned appointments and record the outcome of each visit.
+DentalCare es una aplicación web desarrollada con Laravel para gestionar los pacientes y las citas de una clínica odontológica. El personal de recepción registra pacientes y agenda citas. Los odontólogos consultan las citas que tienen asignadas y registran el resultado de cada atención.
 
-## Current MVP
+## Funcionalidades del MVP
 
-| Module | Available in the application |
+| Módulo | Funciones disponibles |
 | --- | --- |
-| Account | Sign in and sign out. |
-| Patients | List, register, edit, and delete patient records according to the user's permissions. |
-| Appointments | List, schedule, edit, and delete appointments according to the user's permissions. Dentists see and edit only appointments assigned to them. An active appointment blocks another booking for the same dentist, date, and time. |
-| Users | List, create, edit, and delete user accounts. Assign an existing role when managing an account. |
-| Roles and permissions | List, create, edit, and delete roles. Assign module permissions in the role form. A role with assigned users cannot be deleted. |
+| Cuenta | Iniciar y cerrar sesión. |
+| Pacientes | Consultar el listado, registrar, editar y eliminar pacientes según los permisos del usuario. |
+| Citas | Consultar el listado, agendar, editar y eliminar citas según los permisos del usuario. Los odontólogos solo pueden ver y editar las citas que tienen asignadas. Una cita activa impide agendar otra para el mismo odontólogo en la misma fecha y hora. |
+| Usuarios | Consultar el listado, crear, editar y eliminar cuentas de usuario. Al gestionar una cuenta se le puede asignar un rol existente. |
+| Roles y permisos | Consultar el listado, crear, editar y eliminar roles. Los permisos de cada módulo se asignan en el formulario del rol. Para eliminar un rol, primero hay que retirar o reasignar a sus usuarios. |
 
-The [permission matrix](docs/DentalCare_Matriz_Permisos_FINAL.xlsx) lists the 19 functions available for the MVP demonstration, their initial role assignments, and the supporting business rules.
+La [matriz de permisos](docs/DentalCare_Matriz_Permisos_FINAL.xlsx) reúne las 19 funcionalidades disponibles para la demostración del MVP, los permisos iniciales de cada rol y las reglas de negocio.
 
-## Run locally
+## Instalación local
 
-Requirements: **PHP 8.3+**, Composer, MySQL, and Git. For a Windows setup with WAMP, see the [installation guide](docs/INSTALACION.md).
+Necesitas **PHP 8.3 o superior**, Composer, MySQL y Git. Si usas Windows con WAMP, consulta la [guía de instalación](docs/INSTALACION.md).
 
-1. Run the following commands in PowerShell from a fresh checkout:
+1. En PowerShell, ejecuta estos comandos desde la raíz del proyecto recién clonado.
 
    ```powershell
    composer install
@@ -26,38 +26,38 @@ Requirements: **PHP 8.3+**, Composer, MySQL, and Git. For a Windows setup with W
    php artisan key:generate
    ```
 
-2. Create an empty MySQL database named `dentalcare` and update the `DB_*` settings in `.env` to match your local MySQL instance.
-3. Set up the database and start the server:
+2. Crea una base de datos MySQL vacía llamada `dentalcare` y ajusta las variables `DB_*` del archivo `.env` a la configuración de tu instancia local.
+3. Configura la base de datos e inicia el servidor con estos comandos.
 
    ```powershell
    php artisan migrate --seed
    php artisan serve
    ```
 
-4. Open [localhost:8000](http://localhost:8000) and sign in with a demo account.
+4. Abre [localhost:8000](http://localhost:8000) e inicia sesión con una cuenta de prueba.
 
-### Demo accounts
+### Cuentas de prueba
 
-The seeders create three roles, 17 permissions, three demo users, and three sample patients. The password for each seeded demo account is `password`.
+Los datos iniciales incluyen tres roles, 17 permisos, tres usuarios de prueba y tres pacientes de ejemplo. La contraseña inicial de las tres cuentas de prueba es `password`.
 
-| Role | Email | Initial access |
+| Rol | Correo electrónico | Acceso inicial |
 | --- | --- | --- |
-| Administrator | `admin@dentalcare.test` | Manage users, roles, patients, and appointments. |
-| Receptionist | `reception@dentalcare.test` | List, register, and edit patients. List, schedule, edit, and delete appointments. |
-| Dentist | `dentist@dentalcare.test` | View patients. List and edit assigned appointments. |
+| Administrador | `admin@dentalcare.test` | Gestionar usuarios, roles, pacientes y citas. |
+| Recepcionista | `reception@dentalcare.test` | Consultar, registrar y editar pacientes. Consultar, agendar, editar y eliminar citas. |
+| Odontólogo | `dentist@dentalcare.test` | Consultar pacientes. Ver y editar las citas que tiene asignadas. |
 
-## Validate the MVP
+## Validación del MVP
 
-1. Open the [permission matrix](docs/DentalCare_Matriz_Permisos_FINAL.xlsx) and show the functions and the roles assigned to them.
-2. Sign in as the receptionist. Register a test patient, update a patient detail, and schedule an appointment for the demo dentist. Show the saved appointment in the list.
-3. Sign out and sign in as the dentist. Open the assigned appointment, change its status to `Confirmed` and then `Completed`, and save a sample note. Reopen the appointment to show the final status and note.
-4. Sign in as the administrator. Create a temporary role, assign it the `View patients` permission, and associate it with a test account. Show that the account can open the patient list. Use temporary records to demonstrate editing and deletion in the admin modules.
-5. Use a separate test appointment and patient to demonstrate deletion. Delete the appointment first, then delete the test patient as the administrator. Keep the completed appointment for the final walkthrough.
+1. Abre la [matriz de permisos](docs/DentalCare_Matriz_Permisos_FINAL.xlsx) y muestra las funciones y los roles que pueden realizarlas.
+2. Inicia sesión como recepcionista. Registra un paciente de prueba, actualiza uno de sus datos y agenda una cita. Selecciona al paciente y al odontólogo de prueba en el formulario. Guarda y muestra la cita en el listado.
+3. Cierra sesión y entra con la cuenta del odontólogo que seleccionaste. Abre la cita asignada, cambia su estado a `Confirmed` y luego a `Completed`. Guarda una observación de ejemplo. Vuelve a abrir la edición de la cita para mostrar el estado final y la observación en el campo `Notes`.
+4. Inicia sesión como administrador. Crea un rol temporal, asígnale el permiso `View patients` y vincúlalo con una cuenta de prueba. Entra con esa cuenta para comprobar que puede abrir el listado de pacientes. Usa registros temporales para demostrar la edición y la eliminación en los módulos de administración.
+5. Usa otro paciente y otra cita de prueba para demostrar la eliminación. Elimina primero la cita y luego el paciente desde la cuenta de administrador. Conserva la cita completada para el cierre de la demostración.
 
-## Project reference
+## Referencias del proyecto
 
-- **Stack** — Laravel 13, PHP, MySQL, Blade, Bootstrap (Medicio), jQuery, and SweetAlert2.
-- **Database diagram** — [DentalCare ERD](docs/DentalCare_ERD_FINAL.drawio), viewable in [diagrams.net](https://app.diagrams.net).
-- **Application files** — [Routes](routes), [controllers](app/Http/Controllers), [models](app/Models), and [views](resources/views).
-- **Database files** — [Migrations](database/migrations) and [seeders](database/seeders).
-- **Automated tests** — Run `php artisan test`. The test suite uses in-memory SQLite.
+- **Tecnologías.** Laravel 13, PHP, MySQL, Blade, Bootstrap (Medicio), jQuery y SweetAlert2.
+- **Base de datos.** [Diagrama entidad-relación de DentalCare](docs/DentalCare_ERD_FINAL.drawio), que se puede abrir en [diagrams.net](https://app.diagrams.net).
+- **Aplicación.** [Rutas](routes), [controladores](app/Http/Controllers), [modelos](app/Models) y [vistas](resources/views).
+- **Datos iniciales.** [Migraciones](database/migrations) y [archivos de carga de datos de prueba](database/seeders).
+- **Pruebas automatizadas.** Ejecuta `php artisan test`. La suite utiliza SQLite en memoria.
