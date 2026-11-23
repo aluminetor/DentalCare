@@ -23,4 +23,5 @@ Route::middleware('auth')->group(function () {
     require __DIR__.'/web/patients.php';
     require __DIR__.'/web/appointments.php';
     require __DIR__.'/web/users.php';
+    require __DIR__.'/web/roles.php';
 });
